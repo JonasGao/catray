@@ -42,5 +42,13 @@ namespace WinFormsApp1
         {
             Show();
         }
+
+        private void RestartToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            process.Kill();
+            Thread.Sleep(1000);
+            process.Start();
+            MessageBox.Show("已重新启动 Clash。");
+        }
     }
 }
