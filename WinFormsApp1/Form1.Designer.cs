@@ -37,9 +37,9 @@
             this.killClashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label1 = new System.Windows.Forms.Label();
-            this.显示输出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.隐藏输出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.showOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,8 +58,8 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.queryToolStripMenuItem,
-            this.显示输出ToolStripMenuItem,
-            this.隐藏输出ToolStripMenuItem,
+            this.showOutputToolStripMenuItem,
+            this.hideOutputToolStripMenuItem,
             this.killClashToolStripMenuItem,
             this.restartToolStripMenuItem,
             this.closeToolStripMenuItem});
@@ -102,34 +102,39 @@
             this.closeToolStripMenuItem.Text = "退出";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
-            // label1
+            // textBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "使用右键菜单控制";
+            this.textBox1.AutoSize = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Dock = DockStyle.Fill;
+            this.textBox1.TabIndex = 1;
+            this.textBox1.Text = "使用右键菜单控制";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Multiline = true;
+            this.textBox1.WordWrap = true;
+            this.textBox1.ContextMenuStrip = this.contextMenuStrip1;
+            this.textBox1.Font = new Font(FontFamily.GenericMonospace, 9);
             // 
-            // 显示输出ToolStripMenuItem
+            // showOutputToolStripMenuItem
             // 
-            this.显示输出ToolStripMenuItem.Name = "显示输出ToolStripMenuItem";
-            this.显示输出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.显示输出ToolStripMenuItem.Text = "显示输出";
+            this.showOutputToolStripMenuItem.Name = "showOutputToolStripMenuItem";
+            this.showOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showOutputToolStripMenuItem.Text = "显示输出";
+            this.showOutputToolStripMenuItem.Click += new System.EventHandler(this.ShowOutputToolStripMenuItem_Click);
             // 
-            // 隐藏输出ToolStripMenuItem
+            // hideOutputToolStripMenuItem
             // 
-            this.隐藏输出ToolStripMenuItem.Name = "隐藏输出ToolStripMenuItem";
-            this.隐藏输出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.隐藏输出ToolStripMenuItem.Text = "隐藏输出";
+            this.hideOutputToolStripMenuItem.Name = "hideOutputToolStripMenuItem";
+            this.hideOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hideOutputToolStripMenuItem.Text = "隐藏输出";
+            this.hideOutputToolStripMenuItem.Click += new System.EventHandler(this.HideOutputToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 214);
-            this.ContextMenuStrip = this.contextMenuStrip1;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -148,9 +153,9 @@
         private ToolStripMenuItem openToolStripMenuItem;
         private ToolStripMenuItem restartToolStripMenuItem;
         private ToolStripMenuItem queryToolStripMenuItem;
-        private Label label1;
+        private TextBox textBox1;
         private ToolStripMenuItem killClashToolStripMenuItem;
-        private ToolStripMenuItem 显示输出ToolStripMenuItem;
-        private ToolStripMenuItem 隐藏输出ToolStripMenuItem;
+        private ToolStripMenuItem showOutputToolStripMenuItem;
+        private ToolStripMenuItem hideOutputToolStripMenuItem;
     }
 }
