@@ -38,8 +38,6 @@
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.showOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hideOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,8 +56,6 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.queryToolStripMenuItem,
-            this.showOutputToolStripMenuItem,
-            this.hideOutputToolStripMenuItem,
             this.killClashToolStripMenuItem,
             this.restartToolStripMenuItem,
             this.closeToolStripMenuItem});
@@ -115,20 +111,6 @@
             this.textBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.textBox1.Font = new Font(FontFamily.GenericMonospace, 9);
             // 
-            // showOutputToolStripMenuItem
-            // 
-            this.showOutputToolStripMenuItem.Name = "showOutputToolStripMenuItem";
-            this.showOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.showOutputToolStripMenuItem.Text = "显示输出";
-            this.showOutputToolStripMenuItem.Click += new System.EventHandler(this.ShowOutputToolStripMenuItem_Click);
-            // 
-            // hideOutputToolStripMenuItem
-            // 
-            this.hideOutputToolStripMenuItem.Name = "hideOutputToolStripMenuItem";
-            this.hideOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.hideOutputToolStripMenuItem.Text = "隐藏输出";
-            this.hideOutputToolStripMenuItem.Click += new System.EventHandler(this.HideOutputToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -155,7 +137,5 @@
         private ToolStripMenuItem queryToolStripMenuItem;
         private TextBox textBox1;
         private ToolStripMenuItem killClashToolStripMenuItem;
-        private ToolStripMenuItem showOutputToolStripMenuItem;
-        private ToolStripMenuItem hideOutputToolStripMenuItem;
     }
 }

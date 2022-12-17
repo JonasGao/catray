@@ -8,7 +8,6 @@ public partial class Form1 : Form
     private const string Clash = "clash.exe";
     private readonly Process _process;
     private bool _clashRunning;
-    private bool _readOutput;
     private bool _realClose;
 
     public Form1()
@@ -24,22 +23,13 @@ public partial class Form1 : Form
         Encoding.RegisterProvider(provider);
     }
 
-    private Process InitializeClashComponent()
+    private static Process InitializeClashComponent()
     {
         var process = new Process();
         process.StartInfo.FileName = Clash;
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
-        process.StartInfo.StandardOutputEncoding = Encoding.UTF8;
-        process.StartInfo.RedirectStandardOutput = true;
-        process.OutputDataReceived += ClashProcess_OutputDataReceived;
         return process;
-    }
-
-    private void ClashProcess_OutputDataReceived(object sender, DataReceivedEventArgs e)
-    {
-        if (!_readOutput) return;
-        if (e.Data != null) AppendOutput(e.Data);
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -81,7 +71,6 @@ public partial class Form1 : Form
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        HideOutput();
         int sid;
         bool running;
         try
@@ -128,26 +117,6 @@ public partial class Form1 : Form
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
     {
         KillClash();
-    }
-
-    private void ShowOutputToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        _readOutput = true;
-        SetOutput("");
-        _process.BeginOutputReadLine();
-    }
-
-    private void HideOutputToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        HideOutput();
-    }
-
-    private void HideOutput()
-    {
-        if (!_readOutput) return;
-        _readOutput = false;
-        _process.CancelOutputRead();
-        SetOutput("None");
     }
 
     private void AppendOutput(string content)
