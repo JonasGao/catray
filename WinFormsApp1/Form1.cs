@@ -5,7 +5,7 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
-    private const string Clash = "clash.exe";
+    private string _clash = "clash.exe";
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
@@ -23,10 +23,10 @@ public partial class Form1 : Form
         Encoding.RegisterProvider(provider);
     }
 
-    private static Process InitializeClashComponent()
+    private Process InitializeClashComponent()
     {
         var process = new Process();
-        process.StartInfo.FileName = Clash;
+        process.StartInfo.FileName = _clash;
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
         return process;
@@ -71,32 +71,32 @@ public partial class Form1 : Form
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        int sid;
-        bool running;
+        if (!_clashRunning)
+        {
+            SetOutput("Running Flag: false");
+            return;
+        }
+        int pid;
         try
         {
-            sid = _process.SessionId;
-            running = true;
+            pid = _process.Id;
         }
-        catch (InvalidOperationException)
+        catch (Exception)
         {
-            sid = 0;
-            running = false;
+            SetOutput("Running Flag: true. But Process not exists");
+            return;
         }
-
-        var pid = _process.Id;
         var content = new StringBuilder()
             .Append("ID: ").AppendLine(pid.ToString())
-            .Append("SessionID: ").AppendLine(sid.ToString())
             .Append("Running Flag: ").AppendLine(_clashRunning.ToString())
-            .Append("Session Running: ").AppendLine(running.ToString())
+            .Append("HasExited: ").AppendLine(_process.HasExited.ToString())
             .ToString();
         SetOutput(content);
     }
 
     private void StartupClash()
     {
-        if (!File.Exists(Clash))
+        if (!File.Exists(_clash))
         {
             MessageBox.Show("Can not found clash.exe");
             return;
@@ -117,11 +117,6 @@ public partial class Form1 : Form
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
     {
         KillClash();
-    }
-
-    private void AppendOutput(string content)
-    {
-        textBox1.AppendText(content + Environment.NewLine);
     }
 
     private void SetOutput(string content)
