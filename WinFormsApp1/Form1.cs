@@ -5,10 +5,20 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
-    private string _clash = "clash.exe";
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
+    private string ClashFileName
+    {
+        get
+        {
+            return _process.StartInfo.FileName;
+        }
+        set
+        {
+            _process.StartInfo.FileName = value;
+        }
+    }
 
     public Form1()
     {
@@ -26,7 +36,7 @@ public partial class Form1 : Form
     private Process InitializeClashComponent()
     {
         var process = new Process();
-        process.StartInfo.FileName = _clash;
+        process.StartInfo.FileName = "clash.exe";
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
         return process;
@@ -66,39 +76,44 @@ public partial class Form1 : Form
         KillClash();
         Thread.Sleep(1000);
         StartupClash();
-        MessageBox.Show("Restarted Clash.");
+        SetOutput("已重新启动");
     }
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        var pwd = Directory.GetCurrentDirectory();
+        var builder = new StringBuilder()
+            .Append("# Working Directory: ").AppendLine(pwd)
+            .Append("# Core: ").AppendLine(ClashFileName)
+            .AppendLine("------");
         if (!_clashRunning)
         {
-            SetOutput("Running Flag: false");
-            return;
+            builder.AppendLine("# Running Flag: false");
         }
-        int pid;
-        try
+        else
         {
-            pid = _process.Id;
+            int pid;
+            try
+            {
+                pid = _process.Id;
+                builder.Append("# ID: ").AppendLine(pid.ToString())
+            .Append("# Running Flag: ").AppendLine(_clashRunning.ToString())
+            .Append("# HasExited: ").AppendLine(_process.HasExited.ToString());
+            }
+            catch (Exception)
+            {
+                builder.AppendLine("# Running Flag: true. But Process not exists");
+            }
         }
-        catch (Exception)
-        {
-            SetOutput("Running Flag: true. But Process not exists");
-            return;
-        }
-        var content = new StringBuilder()
-            .Append("ID: ").AppendLine(pid.ToString())
-            .Append("Running Flag: ").AppendLine(_clashRunning.ToString())
-            .Append("HasExited: ").AppendLine(_process.HasExited.ToString())
-            .ToString();
+        var content = builder.ToString();
         SetOutput(content);
     }
 
     private void StartupClash()
     {
-        if (!File.Exists(_clash))
+        if (!File.Exists(ClashFileName))
         {
-            MessageBox.Show("Can not found clash.exe");
+            SetOutput("Can not found clash.exe");
             return;
         }
 
@@ -121,6 +136,21 @@ public partial class Form1 : Form
 
     private void SetOutput(string content)
     {
-        textBox1.Text = content;
+        label1.Text = content;
+    }
+
+    private void ConfigCoreToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        var d = new OpenFileDialog
+        {
+            Filter = "应用程序(*.exe)|*.exe"
+        };
+        var r = d.ShowDialog();
+        if (r == DialogResult.OK)
+        {
+            ClashFileName = d.FileName;
+            SetOutput("配置 Core 为：" + ClashFileName);
+        }
+        d.Dispose();
     }
 }
