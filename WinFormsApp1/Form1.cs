@@ -98,8 +98,8 @@ public partial class Form1 : Form
             {
                 pid = _process.Id;
                 builder.Append("# ID: ").AppendLine(pid.ToString())
-            .Append("# Running Flag: ").AppendLine(_clashRunning.ToString())
-            .Append("# HasExited: ").AppendLine(_process.HasExited.ToString());
+                    .Append("# Running Flag: ").AppendLine(_clashRunning.ToString())
+                    .Append("# HasExited: ").AppendLine(_process.HasExited.ToString());
             }
             catch (Exception)
             {
