@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
 
@@ -152,5 +153,25 @@ public partial class Form1 : Form
             SetOutput("配置 Core 为：" + ClashFileName);
         }
         d.Dispose();
+    }
+
+    private void OpenConsoleToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        string target = "http://localhost:9090/ui";
+        try
+        {
+            Process.Start(target);
+        }
+        catch (Win32Exception noBrowser)
+        {
+            if (noBrowser.ErrorCode == -2147467259)
+            {
+                MessageBox.Show(noBrowser.Message, "打开控制台URL失败");
+            }
+        }
+        catch (Exception other)
+        {
+            MessageBox.Show(other.Message, "其他错误");
+        }
     }
 }
