@@ -78,8 +78,10 @@ public partial class Form1 : Form
     {
         KillClash();
         Thread.Sleep(1000);
-        StartupClash();
-        SetOutput("已重新启动");
+        if (StartupClash())
+        {
+            SetOutput("已重新启动");
+        }
     }
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,16 +114,17 @@ public partial class Form1 : Form
         SetOutput(content);
     }
 
-    private void StartupClash()
+    private bool StartupClash()
     {
         if (!File.Exists(ClashFileName))
         {
             SetOutput("Can not found clash.exe");
-            return;
+            return false;
         }
 
         _clashRunning = true;
         _process.Start();
+        return true;
     }
 
     private void KillClash()
