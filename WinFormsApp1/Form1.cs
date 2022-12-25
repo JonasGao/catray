@@ -6,6 +6,7 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
+    private const string configFileName = ".config";
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
@@ -18,6 +19,7 @@ public partial class Form1 : Form
         set
         {
             _process.StartInfo.FileName = value;
+            WriteClashFileName(value);
         }
     }
 
@@ -34,10 +36,10 @@ public partial class Form1 : Form
         Encoding.RegisterProvider(provider);
     }
 
-    private Process InitializeClashComponent()
+    private static Process InitializeClashComponent()
     {
         var process = new Process();
-        process.StartInfo.FileName = "clash.exe";
+        process.StartInfo.FileName = ReadClashFileName();
         process.StartInfo.CreateNoWindow = true;
         process.StartInfo.UseShellExecute = false;
         return process;
@@ -150,6 +152,7 @@ public partial class Form1 : Form
         if (r == DialogResult.OK)
         {
             ClashFileName = d.FileName;
+            WriteClashFileName(ClashFileName);
             SetOutput("≈‰÷√ Core Œ™£∫" + ClashFileName);
         }
         d.Dispose();
@@ -173,5 +176,28 @@ public partial class Form1 : Form
         {
             MessageBox.Show(other.Message, "∆‰À˚¥ÌŒÛ");
         }
+    }
+
+    private static void WriteClashFileName(string clashFileName)
+    {
+        File.WriteAllText(configFileName, clashFileName);
+    }
+
+    private static string ReadClashFileName()
+    {
+        string clashFileName;
+        if (File.Exists(configFileName))
+        {
+            clashFileName = File.ReadAllText(configFileName);
+            if (string.IsNullOrEmpty(clashFileName))
+            {
+                clashFileName = "clash.exe";
+            }
+        }
+        else
+        {
+            clashFileName = "clash.exe";
+        }
+        return clashFileName;
     }
 }
