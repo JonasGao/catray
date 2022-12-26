@@ -64,55 +64,55 @@
             this.restartToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 180);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(149, 158);
             this.contextMenuStrip1.Text = "11111111";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.openToolStripMenuItem.Text = "打开窗口";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // openConsoleToolStripMenuItem
             // 
             this.openConsoleToolStripMenuItem.Name = "openConsoleToolStripMenuItem";
-            this.openConsoleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openConsoleToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.openConsoleToolStripMenuItem.Text = "打开控制台";
             this.openConsoleToolStripMenuItem.Click += new System.EventHandler(this.OpenConsoleToolStripMenuItem_Click);
             // 
             // queryToolStripMenuItem
             // 
             this.queryToolStripMenuItem.Name = "queryToolStripMenuItem";
-            this.queryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.queryToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.queryToolStripMenuItem.Text = "查询进程状态";
             this.queryToolStripMenuItem.Click += new System.EventHandler(this.QueryToolStripMenuItem_Click);
             // 
             // configCoreToolStripMenuItem
             // 
             this.configCoreToolStripMenuItem.Name = "configCoreToolStripMenuItem";
-            this.configCoreToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configCoreToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.configCoreToolStripMenuItem.Text = "配置 Core";
             this.configCoreToolStripMenuItem.Click += new System.EventHandler(this.ConfigCoreToolStripMenuItem_Click);
             // 
             // killClashToolStripMenuItem
             // 
             this.killClashToolStripMenuItem.Name = "killClashToolStripMenuItem";
-            this.killClashToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.killClashToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.killClashToolStripMenuItem.Text = "关闭 Clash";
             this.killClashToolStripMenuItem.Click += new System.EventHandler(this.KillClashToolStripMenuItem_Click);
             // 
             // restartToolStripMenuItem
             // 
             this.restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            this.restartToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.restartToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.restartToolStripMenuItem.Text = "重新启动";
             this.restartToolStripMenuItem.Click += new System.EventHandler(this.RestartToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.closeToolStripMenuItem.Text = "退出";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.ToolStripMenuItem1_Click);
             // 
