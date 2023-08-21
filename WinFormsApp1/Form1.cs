@@ -6,16 +6,13 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
-    private const string configFileName = ".config";
+    private const string ConfigFileName = ".config";
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
     private string ClashFileName
     {
-        get
-        {
-            return _process.StartInfo.FileName;
-        }
+        get => _process.StartInfo.FileName;
         set
         {
             _process.StartInfo.FileName = value;
@@ -80,7 +77,7 @@ public partial class Form1 : Form
         Thread.Sleep(1000);
         if (StartupClash())
         {
-            SetOutput("“—÷ÿ–¬∆Ù∂Ø");
+            SetOutput("Â∑≤ÈáçÊñ∞ÂêØÂä®");
         }
     }
 
@@ -97,10 +94,9 @@ public partial class Form1 : Form
         }
         else
         {
-            int pid;
             try
             {
-                pid = _process.Id;
+                var pid = _process.Id;
                 builder.Append("# ID: ").AppendLine(pid.ToString())
                     .Append("# Running Flag: ").AppendLine(_clashRunning.ToString())
                     .Append("# HasExited: ").AppendLine(_process.HasExited.ToString());
@@ -149,21 +145,21 @@ public partial class Form1 : Form
     {
         var d = new OpenFileDialog
         {
-            Filter = "”¶”√≥Ã–Ú(*.exe)|*.exe"
+            Filter = @"Â∫îÁî®Á®ãÂ∫è(*.exe)|*.exe"
         };
         var r = d.ShowDialog();
         if (r == DialogResult.OK)
         {
             ClashFileName = d.FileName;
             WriteClashFileName(ClashFileName);
-            SetOutput("≈‰÷√ Core Œ™£∫" + ClashFileName);
+            SetOutput("ÈÖçÁΩÆ Core ‰∏∫Ôºö" + ClashFileName);
         }
         d.Dispose();
     }
 
     private void OpenConsoleToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        string target = "http://localhost:9090/ui";
+        const string target = "http://localhost:9090/ui";
         try
         {
             Process.Start(target);
@@ -172,26 +168,26 @@ public partial class Form1 : Form
         {
             if (noBrowser.ErrorCode == -2147467259)
             {
-                MessageBox.Show(noBrowser.Message, "¥Úø™øÿ÷∆Ã®URL ß∞‹");
+                MessageBox.Show(noBrowser.Message, @"ÊâìÂºÄÊéßÂà∂Âè∞URLÂ§±Ë¥•");
             }
         }
         catch (Exception other)
         {
-            MessageBox.Show(other.Message, "∆‰À˚¥ÌŒÛ");
+            MessageBox.Show(other.Message, @"ÂÖ∂‰ªñÈîôËØØ");
         }
     }
 
     private static void WriteClashFileName(string clashFileName)
     {
-        File.WriteAllText(configFileName, clashFileName);
+        File.WriteAllText(ConfigFileName, clashFileName);
     }
 
     private static string ReadClashFileName()
     {
         string clashFileName;
-        if (File.Exists(configFileName))
+        if (File.Exists(ConfigFileName))
         {
-            clashFileName = File.ReadAllText(configFileName);
+            clashFileName = File.ReadAllText(ConfigFileName);
             if (string.IsNullOrEmpty(clashFileName))
             {
                 clashFileName = "clash.exe";
