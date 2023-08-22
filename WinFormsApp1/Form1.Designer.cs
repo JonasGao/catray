@@ -39,6 +39,7 @@
             this.killClashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.configProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -60,12 +61,13 @@
             this.openConsoleToolStripMenuItem,
             this.queryToolStripMenuItem,
             this.configCoreToolStripMenuItem,
+            this.configProfileToolStripMenuItem,
             this.killClashToolStripMenuItem,
             this.restartToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(149, 158);
-            this.contextMenuStrip1.Text = "11111111";
+            this.contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
             // 
@@ -94,6 +96,13 @@
             this.configCoreToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.configCoreToolStripMenuItem.Text = "配置 Core";
             this.configCoreToolStripMenuItem.Click += new System.EventHandler(this.ConfigCoreToolStripMenuItem_Click);
+            //
+            // 1
+            //
+            this.configProfileToolStripMenuItem.Name = "configProfileToolStripMenuItem";
+            this.configProfileToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.configProfileToolStripMenuItem.Text = "配置 Profile";
+            this.configProfileToolStripMenuItem.Click += new System.EventHandler(this.ConfigProfileToolStripMenuItem_Click);
             // 
             // killClashToolStripMenuItem
             // 
@@ -152,6 +161,7 @@
         private ToolStripMenuItem killClashToolStripMenuItem;
         private ToolStripMenuItem openConsoleToolStripMenuItem;
         private ToolStripMenuItem configCoreToolStripMenuItem;
+        private ToolStripMenuItem configProfileToolStripMenuItem;
         private Label label1;
     }
 }
