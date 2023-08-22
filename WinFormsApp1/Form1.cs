@@ -10,6 +10,7 @@ public partial class Form1 : Form
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
+
     private string ClashFileName
     {
         get => _process.StartInfo.FileName;
@@ -83,6 +84,11 @@ public partial class Form1 : Form
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        QueryProcess();
+    }
+
+    private void QueryProcess()
+    {
         var pwd = Directory.GetCurrentDirectory();
         var builder = new StringBuilder()
             .Append("# Working Directory: ").AppendLine(pwd)
@@ -106,6 +112,7 @@ public partial class Form1 : Form
                 builder.AppendLine("# Running Flag: true. But Process not exists");
             }
         }
+
         var content = builder.ToString();
         SetOutput(content);
     }
@@ -134,6 +141,7 @@ public partial class Form1 : Form
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
     {
         KillClash();
+        QueryProcess();
     }
 
     private void SetOutput(string content)
@@ -154,6 +162,7 @@ public partial class Form1 : Form
             WriteClashFileName(ClashFileName);
             SetOutput("配置 Core 为：" + ClashFileName);
         }
+
         d.Dispose();
     }
 
@@ -162,7 +171,7 @@ public partial class Form1 : Form
         const string target = "http://localhost:9090/ui";
         try
         {
-            Process.Start(new ProcessStartInfo {FileName = target, UseShellExecute = true});
+            Process.Start(new ProcessStartInfo { FileName = target, UseShellExecute = true });
         }
         catch (Win32Exception noBrowser)
         {
@@ -197,6 +206,7 @@ public partial class Form1 : Form
         {
             clashFileName = "clash.exe";
         }
+
         return clashFileName;
     }
 }
