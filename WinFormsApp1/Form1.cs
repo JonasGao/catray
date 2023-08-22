@@ -162,7 +162,7 @@ public partial class Form1 : Form
         const string target = "http://localhost:9090/ui";
         try
         {
-            Process.Start(target);
+            Process.Start(new ProcessStartInfo {FileName = target, UseShellExecute = true});
         }
         catch (Win32Exception noBrowser)
         {
