@@ -67,7 +67,10 @@ public partial class Form1 : Form
         Thread.Sleep(1000);
         if (StartupClash())
         {
-            AppendOutput("已重新启动");
+            AppendOutput("Successfully restart.");
+        } else
+        {
+            AppendOutput("Restart failed.");
         }
     }
 
@@ -109,6 +112,12 @@ public partial class Form1 : Form
 
     private bool StartupClash()
     {
+        if (_clashRunning)
+        {
+            SetOutput("Clash is runing.");
+            return false;
+        }
+
         var readConfig = ReadConfig();
         var clashFileName = readConfig[0];
         var profileFileName = readConfig[1];
@@ -147,8 +156,8 @@ public partial class Form1 : Form
     {
         if (!_clashRunning) return;
         _process.Kill();
-        _clashRunning = false;
         _process.WaitForExit();
+        _clashRunning = false;
     }
 
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
@@ -177,7 +186,7 @@ public partial class Form1 : Form
         if (r == DialogResult.OK)
         {
             WriteClashFileName(d.FileName);
-            SetOutput("配置 Core 为：" + d.FileName);
+            SetOutput("Using clash core：" + d.FileName);
         }
 
         d.Dispose();
@@ -193,7 +202,7 @@ public partial class Form1 : Form
         if (r == DialogResult.OK)
         {
             WriteProfileFileName(d.FileName);
-            SetOutput("配置 Profile 为：" + d.FileName);
+            SetOutput("Using config file：" + d.FileName);
         }
 
         d.Dispose();
