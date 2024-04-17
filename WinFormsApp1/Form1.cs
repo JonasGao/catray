@@ -67,7 +67,7 @@ public partial class Form1 : Form
         Thread.Sleep(1000);
         if (StartupClash())
         {
-            SetOutput("已重新启动");
+            AppendOutput("已重新启动");
         }
     }
 
@@ -138,6 +138,8 @@ public partial class Form1 : Form
 
         _process.Start();
         _clashRunning = true;
+
+        QueryProcess();
         return true;
     }
 
@@ -158,6 +160,11 @@ public partial class Form1 : Form
     private void SetOutput(string content)
     {
         label1.Text = content;
+    }
+
+    private void AppendOutput(string content)
+    {
+        label1.Text = label1.Text + Environment.NewLine + content;
     }
 
     private void ConfigCoreToolStripMenuItem_Click(object sender, EventArgs e)
