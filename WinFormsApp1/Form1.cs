@@ -6,7 +6,6 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
-    private const string ConfigFileName = ".config";
     private readonly Process _process;
     private bool _clashRunning;
     private bool _realClose;
@@ -34,7 +33,11 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
-        StartupClash();
+        var config = Config.ReadConfig();
+        if (config.AutoStartupClash)
+        {
+            StartupClash(config);
+        }
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -65,7 +68,7 @@ public partial class Form1 : Form
     {
         KillClash();
         Thread.Sleep(1000);
-        if (StartupClash())
+        if (StartupClash(Config.ReadConfig()))
         {
             AppendOutput("Successfully restart.");
         } else
@@ -110,7 +113,7 @@ public partial class Form1 : Form
         SetOutput(content);
     }
 
-    private bool StartupClash()
+    private bool StartupClash(Config config)
     {
         if (_clashRunning)
         {
@@ -118,31 +121,27 @@ public partial class Form1 : Form
             return false;
         }
 
-        var readConfig = ReadConfig();
-        var clashFileName = readConfig[0];
-        var profileFileName = readConfig[1];
-
-        if (!File.Exists(clashFileName))
+        if (!File.Exists(config.ClashFileName))
         {
-            SetOutput("Can not found clash.exe");
+            SetOutput("Can not found clash: " + config.ClashFileName);
             return false;
         }
 
-        _process.StartInfo.FileName = clashFileName;
+        _process.StartInfo.FileName = config.ClashFileName;
 
-        if (string.IsNullOrEmpty(profileFileName))
+        if (string.IsNullOrEmpty(config.ProfileFileName))
         {
             _process.StartInfo.Arguments = null;
         }
         else
         {
-            if (!File.Exists(profileFileName))
+            if (!File.Exists(config.ProfileFileName))
             {
-                SetOutput("Can not found " + profileFileName);
+                SetOutput("Can not found profile: " + config.ProfileFileName);
                 return false;
             }
 
-            _process.StartInfo.Arguments = "-f " + profileFileName;
+            _process.StartInfo.Arguments = "-f " + config.ProfileFileName;
         }
 
         _process.Start();
@@ -185,7 +184,9 @@ public partial class Form1 : Form
         var r = d.ShowDialog();
         if (r == DialogResult.OK)
         {
-            WriteClashFileName(d.FileName);
+            Config config = Config.ReadConfig();
+            config.ClashFileName = d.FileName;
+            config.Save();
             SetOutput("Using clash core：" + d.FileName);
         }
 
@@ -201,7 +202,9 @@ public partial class Form1 : Form
         var r = d.ShowDialog();
         if (r == DialogResult.OK)
         {
-            WriteProfileFileName(d.FileName);
+            Config config = Config.ReadConfig();
+            config.ProfileFileName = d.FileName;
+            config.Save();
             SetOutput("Using config file：" + d.FileName);
         }
 
@@ -226,47 +229,5 @@ public partial class Form1 : Form
         {
             MessageBox.Show(other.Message, @"其他错误");
         }
-    }
-
-    private static void WriteClashFileName(string clashFileName)
-    {
-        var readConfig = ReadConfig();
-        readConfig[0] = clashFileName;
-        File.WriteAllLines(ConfigFileName, readConfig);
-    }
-
-    private static void WriteProfileFileName(string profileFileName)
-    {
-        var readConfig = ReadConfig();
-        readConfig[1] = profileFileName;
-        File.WriteAllLines(ConfigFileName, readConfig);
-    }
-
-    private static string[] ReadConfig()
-    {
-        if (!File.Exists(ConfigFileName))
-        {
-            return new[] { "clash.exe", "" };
-        }
-
-        var lines = File.ReadAllLines(ConfigFileName);
-        string clashFileName = null!;
-        string profileFileName = "";
-        if (lines.Length > 0)
-        {
-            clashFileName = lines[0];
-        }
-
-        if (string.IsNullOrEmpty(clashFileName))
-        {
-            clashFileName = "clash.exe";
-        }
-
-        if (lines.Length > 1)
-        {
-            profileFileName = lines[1];
-        }
-
-        return new[] { clashFileName, profileFileName };
     }
 }
