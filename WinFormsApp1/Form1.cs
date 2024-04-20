@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 
 namespace WinFormsApp1;
@@ -38,7 +39,7 @@ public partial class Form1 : Form
         // 如果当前配置是使用本地配置。则勾选对应选项
         localProfileMenuItem.Checked = !config.EnableHostingProfile;
         // 把配置的托管配置加载到菜单
-        foreach(HostingProfile hostingProfile in config.Profiles)
+        foreach (HostingProfile hostingProfile in config.Profiles)
         {
             ToolStripMenuItem item = new()
             {
@@ -53,7 +54,8 @@ public partial class Form1 : Form
             if (string.IsNullOrWhiteSpace(config.UsingProfileName))
             {
                 localProfileMenuItem.Checked = true;
-            } else
+            }
+            else
             {
                 bool found = false;
                 foreach (ToolStripMenuItem item in configProfileToolStripMenuItem.DropDownItems)
@@ -85,7 +87,7 @@ public partial class Form1 : Form
 
     private void ProfileItem_Click(object? sender, EventArgs e)
     {
-        if(sender == null)
+        if (sender == null)
         {
             MessageBox.Show("Sender is null. Enable hosting profile failed.");
             return;
@@ -172,7 +174,7 @@ public partial class Form1 : Form
         }
 
         var content = builder.ToString();
-        SetOutput(content);
+        AppendOutput(content);
     }
 
     private bool StartupClash(Config config)
@@ -191,19 +193,52 @@ public partial class Form1 : Form
 
         _process.StartInfo.FileName = config.ClashFileName;
 
-        if (string.IsNullOrEmpty(config.ProfileFileName))
+        // 查找对应的配置
+        if (config.EnableHostingProfile)
         {
-            _process.StartInfo.Arguments = null;
+            // 使用托管配置
+            HostingProfile? profile = null;
+            foreach (HostingProfile i in config.Profiles)
+            {
+                if (i.Name == config.UsingProfileName)
+                {
+                    profile = i;
+                    break;
+                }
+            }
+            if (profile != null)
+            {
+                SetOutput("Found profile: " + profile.Value.Name);
+                AppendOutput("Downloading profile: " + profile.Value.URL);
+                string path = config.ProfileDir + "/" + profile.Value.Name;
+                AppendOutput("Downloading to: " + path);
+                using (HttpClient client = new())
+                {
+                    var t = client.GetStringAsync(profile.Value.URL);
+                    var res = t.GetAwaiter().GetResult();
+                    File.WriteAllBytes(path, Encoding.UTF8.GetBytes(res));
+                }
+                AppendOutput("Downloaded");
+                _process.StartInfo.Arguments = "-f " + path;
+            }
         }
         else
         {
-            if (!File.Exists(config.ProfileFileName))
+            // 使用本地配置
+            if (string.IsNullOrEmpty(config.ProfileFileName))
             {
-                SetOutput("Can not found profile: " + config.ProfileFileName);
-                return false;
+                _process.StartInfo.Arguments = null;
             }
+            else
+            {
+                if (!File.Exists(config.ProfileFileName))
+                {
+                    SetOutput("Can not found profile: " + config.ProfileFileName);
+                    return false;
+                }
 
-            _process.StartInfo.Arguments = "-f " + config.ProfileFileName;
+                _process.StartInfo.Arguments = "-f " + config.ProfileFileName;
+            }
         }
 
         _process.Start();
