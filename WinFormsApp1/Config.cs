@@ -18,22 +18,27 @@ namespace WinFormsApp1
 
         public bool EnableHostingProfile { get; set; }
 
+        public string UsingProfileName { get; set; }
+
         public List<HostingProfile> Profiles { get; set; }
+
         private Config()
         {
             ClashFileName = "clash.exe";
             ProfileFileName = "";
             AutoStartupClash = false;
             EnableHostingProfile = false;
+            UsingProfileName = "";
             Profiles = new List<HostingProfile>();
         }
 
-        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile, List<HostingProfile> profiles)
+        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile, string usingProfileName, List<HostingProfile> profiles)
         {
             ClashFileName = clashFileName;
             ProfileFileName = profileFileName;
             AutoStartupClash = autoStartupClash;
             EnableHostingProfile = enableHostingProfile;
+            UsingProfileName = usingProfileName;
             Profiles = profiles;
         }
 
@@ -44,6 +49,7 @@ namespace WinFormsApp1
                 ProfileFileName,
                 AutoStartupClash.ToString(),
                 EnableHostingProfile.ToString(),
+                UsingProfileName,
                 EncodeProfiles(Profiles)
             });
         }
@@ -60,6 +66,7 @@ namespace WinFormsApp1
             string profileFileName = "";
             bool autoStartupClash = false;
             bool enableHostingProfile = false;
+            string usingProfileName = "";
             List<HostingProfile> profiles = new List<HostingProfile>();
             if (lines.Length > 0)
             {
@@ -90,11 +97,16 @@ namespace WinFormsApp1
 
             if (lines.Length > 4)
             {
-                string value = lines[4];
+                usingProfileName = lines[4];
+            }
+
+            if (lines.Length > 5)
+            {
+                string value = lines[5];
                 profiles = DecodeProfiles(value);
             }
 
-            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile, profiles);
+            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile, usingProfileName, profiles);
         }
 
         private static string EncodeProfiles(List<HostingProfile> profiles)

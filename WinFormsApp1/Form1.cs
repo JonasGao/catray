@@ -33,20 +33,71 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
+        // 启动的时候加载配置
         var config = Config.ReadConfig();
-        if (config.AutoStartupClash)
-        {
-            StartupClash(config);
-            autoStartupClashMenuItem.Checked = true;
-        }
+        // 如果当前配置是使用本地配置。则勾选对应选项
         localProfileMenuItem.Checked = !config.EnableHostingProfile;
+        // 把配置的托管配置加载到菜单
         foreach(HostingProfile hostingProfile in config.Profiles)
         {
             ToolStripMenuItem item = new()
             {
                 Text = hostingProfile.Name,
             };
+            item.Click += ProfileItem_Click;
             configProfileToolStripMenuItem.DropDownItems.Add(item);
+        }
+        // 如果使用了托管配置，则勾选对应的托管配置菜单项
+        if (config.EnableHostingProfile)
+        {
+            if (string.IsNullOrWhiteSpace(config.UsingProfileName))
+            {
+                localProfileMenuItem.Checked = true;
+            } else
+            {
+                bool found = false;
+                foreach (ToolStripMenuItem item in configProfileToolStripMenuItem.DropDownItems)
+                {
+                    if (item.Text == config.UsingProfileName)
+                    {
+                        item.Checked = true;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found)
+                {
+                    config.EnableHostingProfile = false;
+                    config.UsingProfileName = "";
+                    localProfileMenuItem.Checked = true;
+                    config.Save();
+                }
+            }
+        }
+        // 如果配置了自动启动，则在此时启动 Clash
+        if (config.AutoStartupClash)
+        {
+            StartupClash(config);
+            // 标记自动启动
+            autoStartupClashMenuItem.Checked = true;
+        }
+    }
+
+    private void ProfileItem_Click(object? sender, EventArgs e)
+    {
+        if(sender == null)
+        {
+            MessageBox.Show("Sender is null. Enable hosting profile failed.");
+            return;
+        }
+        ToolStripMenuItem senderItem = (ToolStripMenuItem)sender;
+        Config config = Config.ReadConfig();
+        config.EnableHostingProfile = true;
+        config.UsingProfileName = senderItem.Text;
+        config.Save();
+        foreach (ToolStripMenuItem item in configProfileToolStripMenuItem.DropDownItems)
+        {
+            item.Checked = item.Text == config.UsingProfileName;
         }
     }
 
@@ -241,11 +292,14 @@ public partial class Form1 : Form
         {
             HostingProfileOkEventArgs args = (HostingProfileOkEventArgs)e;
             List<HostingProfile> profiles = args.profiles;
+            // 保存配置
             Config config = Config.ReadConfig();
             config.Profiles = profiles;
             config.Save();
+            // 更新窗口画面
             Controls.Remove(hostingProfile);
             Controls.Add(label1);
+            // 更新菜单画面
             configProfileToolStripMenuItem.DropDownItems.Clear();
             configProfileToolStripMenuItem.DropDownItems.Add(localProfileMenuItem);
             foreach (HostingProfile hostingProfile in profiles)
@@ -254,8 +308,25 @@ public partial class Form1 : Form
                 {
                     Text = hostingProfile.Name,
                 };
+                item.Click += ProfileItem_Click;
                 configProfileToolStripMenuItem.DropDownItems.Add(item);
             }
+            // 如果使用了托管配置，则勾选对应的托管配置菜单项
+            if (config.EnableHostingProfile)
+            {
+                if (!string.IsNullOrWhiteSpace(config.UsingProfileName))
+                {
+                    foreach (ToolStripMenuItem item in configProfileToolStripMenuItem.DropDownItems)
+                    {
+                        if (item.Text == config.UsingProfileName)
+                        {
+                            item.Checked = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            // 销毁组件
             hostingProfile.Dispose();
         };
         Controls.Remove(label1);

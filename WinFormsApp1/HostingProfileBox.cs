@@ -61,6 +61,14 @@ namespace WinFormsApp1
             }
             else
             {
+                foreach(ListViewItem item in profileListView.Items)
+                {
+                    if (item.Text == name)
+                    {
+                        MessageBox.Show("Profile name already exists.");
+                        return;
+                    }
+                }
                 profileListView.Items.Add(new ListViewItem(new string[] { name, url }));
             }
         }
