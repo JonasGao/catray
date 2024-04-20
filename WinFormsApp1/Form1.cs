@@ -39,7 +39,15 @@ public partial class Form1 : Form
             StartupClash(config);
             autoStartupClashMenuItem.Checked = true;
         }
-        enableHostingProfileMenuItem.Checked = config.EnableHostingProfile;
+        localProfileMenuItem.Checked = !config.EnableHostingProfile;
+        foreach(HostingProfile hostingProfile in config.Profiles)
+        {
+            ToolStripMenuItem item = new()
+            {
+                Text = hostingProfile.Name,
+            };
+            configProfileToolStripMenuItem.DropDownItems.Add(item);
+        }
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -196,24 +204,6 @@ public partial class Form1 : Form
         d.Dispose();
     }
 
-    private void ConfigProfileToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        var d = new OpenFileDialog
-        {
-            Filter = @"配置文件(*.yaml)|*.yaml|配置文件(*.yml)|*.yml"
-        };
-        var r = d.ShowDialog();
-        if (r == DialogResult.OK)
-        {
-            Config config = Config.ReadConfig();
-            config.ProfileFileName = d.FileName;
-            config.Save();
-            SetOutput("Using config file：" + d.FileName);
-        }
-
-        d.Dispose();
-    }
-
     private void OpenConsoleToolStripMenuItem_Click(object sender, EventArgs e)
     {
         const string target = "http://localhost:9090/ui";
@@ -256,6 +246,16 @@ public partial class Form1 : Form
             config.Save();
             Controls.Remove(hostingProfile);
             Controls.Add(label1);
+            configProfileToolStripMenuItem.DropDownItems.Clear();
+            configProfileToolStripMenuItem.DropDownItems.Add(localProfileMenuItem);
+            foreach (HostingProfile hostingProfile in profiles)
+            {
+                ToolStripMenuItem item = new()
+                {
+                    Text = hostingProfile.Name,
+                };
+                configProfileToolStripMenuItem.DropDownItems.Add(item);
+            }
             hostingProfile.Dispose();
         };
         Controls.Remove(label1);
@@ -269,10 +269,23 @@ public partial class Form1 : Form
         config.Save();
     }
 
-    private void EnableHostingProfileMenuItem_Click(object sender, EventArgs e)
+    private void LocalProfileMenuItem_Click(object sender, EventArgs e)
     {
-        Config config = Config.ReadConfig();
-        config.EnableHostingProfile = enableHostingProfileMenuItem.Checked = !enableHostingProfileMenuItem.Checked;
-        config.Save();
+        var d = new OpenFileDialog
+        {
+            Filter = @"配置文件(*.yaml)|*.yaml|配置文件(*.yml)|*.yml"
+        };
+        var r = d.ShowDialog();
+        if (r == DialogResult.OK)
+        {
+            Config config = Config.ReadConfig();
+            config.ProfileFileName = d.FileName;
+            config.EnableHostingProfile = false;
+            config.Save();
+            localProfileMenuItem.Checked = true;
+            SetOutput("Using config file：" + d.FileName);
+        }
+
+        d.Dispose();
     }
 }
