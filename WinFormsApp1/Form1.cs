@@ -196,29 +196,9 @@ public partial class Form1 : Form
         // 查找对应的配置
         if (config.EnableHostingProfile)
         {
-            // 使用托管配置
-            HostingProfile? profile = null;
-            foreach (HostingProfile i in config.Profiles)
+            string? path = UpdateCurrentProfile(config);
+            if (path != null)
             {
-                if (i.Name == config.UsingProfileName)
-                {
-                    profile = i;
-                    break;
-                }
-            }
-            if (profile != null)
-            {
-                SetOutput("Found profile: " + profile.Value.Name);
-                AppendOutput("Downloading profile: " + profile.Value.URL);
-                string path = config.ProfileDir + "/" + profile.Value.Name;
-                AppendOutput("Downloading to: " + path);
-                using (HttpClient client = new())
-                {
-                    var t = client.GetStringAsync(profile.Value.URL);
-                    var res = t.GetAwaiter().GetResult();
-                    File.WriteAllBytes(path, Encoding.UTF8.GetBytes(res));
-                }
-                AppendOutput("Downloaded");
                 _process.StartInfo.Arguments = "-f " + path;
             }
         }
@@ -246,6 +226,41 @@ public partial class Form1 : Form
 
         QueryProcess();
         return true;
+    }
+
+    private string? UpdateCurrentProfile(Config config)
+    {
+        // 确定目录
+        if (!Directory.Exists(config.ProfileDir))
+        {
+            Directory.CreateDirectory(config.ProfileDir);
+        }
+        // 使用托管配置
+        HostingProfile ? profile = null;
+        foreach (HostingProfile i in config.Profiles)
+        {
+            if (i.Name == config.UsingProfileName)
+            {
+                profile = i;
+                break;
+            }
+        }
+        if (profile == null)
+        {
+            return null;
+        }
+        SetOutput("Found profile: " + profile.Value.Name);
+        AppendOutput("Downloading profile: " + profile.Value.URL);
+        string path = config.ProfileDir + "/" + profile.Value.Name;
+        AppendOutput("Downloading to: " + path);
+        using (HttpClient client = new())
+        {
+            var t = client.GetStringAsync(profile.Value.URL);
+            var res = t.GetAwaiter().GetResult();
+            File.WriteAllBytes(path, Encoding.UTF8.GetBytes(res));
+        }
+        AppendOutput("Downloaded");
+        return path;
     }
 
     private void KillClash()
@@ -393,5 +408,10 @@ public partial class Form1 : Form
         }
 
         d.Dispose();
+    }
+
+    private void UpdateProfileMenuItem_Click(object sender, EventArgs e)
+    {
+        UpdateCurrentProfile(Config.ReadConfig());
     }
 }
