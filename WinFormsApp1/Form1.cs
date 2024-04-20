@@ -71,7 +71,8 @@ public partial class Form1 : Form
         if (StartupClash(Config.ReadConfig()))
         {
             AppendOutput("Successfully restart.");
-        } else
+        }
+        else
         {
             AppendOutput("Restart failed.");
         }
@@ -229,5 +230,21 @@ public partial class Form1 : Form
         {
             MessageBox.Show(other.Message, @"其他错误");
         }
+    }
+
+    private void HostingProfileMenuItem_Click(object sender, EventArgs e)
+    {
+        HostingProfile hostingProfile = new()
+        {
+            Dock = DockStyle.Fill
+        };
+        hostingProfile.Cancel += (sender, e) =>
+        {
+            Controls.Remove(hostingProfile);
+            Controls.Add(label1);
+            hostingProfile.Dispose();
+        };
+        Controls.Remove(label1);
+        Controls.Add(hostingProfile);
     }
 }

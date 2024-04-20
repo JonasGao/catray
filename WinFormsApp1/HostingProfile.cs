@@ -12,9 +12,16 @@ namespace WinFormsApp1
 {
     public partial class HostingProfile : UserControl
     {
+        public event EventHandler Cancel;
+
         public HostingProfile()
         {
             InitializeComponent();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            Cancel?.Invoke(this, EventArgs.Empty);
         }
     }
 }
