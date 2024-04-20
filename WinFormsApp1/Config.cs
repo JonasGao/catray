@@ -16,11 +16,22 @@ namespace WinFormsApp1
 
         public bool AutoStartupClash { get; set; }
 
-        public Config(string clashFileName, string profileFileName, bool autoStartupClash)
+        public bool EnableHostingProfile { get; set; }
+
+        private Config()
+        {
+            ClashFileName = "clash.exe";
+            ProfileFileName = "";
+            AutoStartupClash = false;
+            EnableHostingProfile = false;
+        }
+
+        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile)
         {
             ClashFileName = clashFileName;
             ProfileFileName = profileFileName;
             AutoStartupClash = autoStartupClash;
+            EnableHostingProfile = enableHostingProfile;
         }
 
         public void Save()
@@ -28,7 +39,8 @@ namespace WinFormsApp1
             File.WriteAllLines(ConfigFileName, new string[]{
                 ClashFileName,
                 ProfileFileName,
-                AutoStartupClash.ToString()
+                AutoStartupClash.ToString(),
+                EnableHostingProfile.ToString(),
             });
         }
 
@@ -36,13 +48,14 @@ namespace WinFormsApp1
         {
             if (!File.Exists(ConfigFileName))
             {
-                return new Config("clash.exe", "", false);
+                return new Config();
             }
 
             var lines = File.ReadAllLines(ConfigFileName);
             string clashFileName = null!;
             string profileFileName = "";
             bool autoStartupClash = false;
+            bool enableHostingProfile = false;
             if (lines.Length > 0)
             {
                 clashFileName = lines[0];
@@ -61,10 +74,16 @@ namespace WinFormsApp1
             if (lines.Length > 2)
             {
                 string value = lines[2];
-                autoStartupClash = string.Equals(value, "true");
+                autoStartupClash = string.Equals(value, "True");
             }
 
-            return new Config(clashFileName, profileFileName, autoStartupClash);
+            if (lines.Length > 3)
+            {
+                string value = lines[3];
+                enableHostingProfile = string.Equals(value, "True");
+            }
+
+            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile);
         }
     }
 }

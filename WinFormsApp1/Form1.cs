@@ -37,7 +37,9 @@ public partial class Form1 : Form
         if (config.AutoStartupClash)
         {
             StartupClash(config);
+            autoStartupClashMenuItem.Checked = true;
         }
+        enableHostingProfileMenuItem.Checked = config.EnableHostingProfile;
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -246,5 +248,19 @@ public partial class Form1 : Form
         };
         Controls.Remove(label1);
         Controls.Add(hostingProfile);
+    }
+
+    private void AutoStartupClashMenuItem_Click(object sender, EventArgs e)
+    {
+        Config config = Config.ReadConfig();
+        config.AutoStartupClash = autoStartupClashMenuItem.Checked = !autoStartupClashMenuItem.Checked;
+        config.Save();
+    }
+
+    private void EnableHostingProfileMenuItem_Click(object sender, EventArgs e)
+    {
+        Config config = Config.ReadConfig();
+        config.EnableHostingProfile = enableHostingProfileMenuItem.Checked = !enableHostingProfileMenuItem.Checked;
+        config.Save();
     }
 }
