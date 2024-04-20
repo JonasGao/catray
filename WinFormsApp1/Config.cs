@@ -10,6 +10,8 @@ namespace WinFormsApp1
     {
         private const string ConfigFileName = ".config";
 
+        private const string DefaultProfileDir = ".profiles";
+
         public string ClashFileName { get; set; }
 
         public string ProfileFileName { get; set; }
@@ -17,6 +19,8 @@ namespace WinFormsApp1
         public bool AutoStartupClash { get; set; }
 
         public bool EnableHostingProfile { get; set; }
+
+        public string ProfileDir { get; set; }
 
         public string UsingProfileName { get; set; }
 
@@ -28,16 +32,18 @@ namespace WinFormsApp1
             ProfileFileName = "";
             AutoStartupClash = false;
             EnableHostingProfile = false;
+            ProfileDir = DefaultProfileDir;
             UsingProfileName = "";
             Profiles = new List<HostingProfile>();
         }
 
-        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile, string usingProfileName, List<HostingProfile> profiles)
+        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile, string profileDir, string usingProfileName, List<HostingProfile> profiles)
         {
             ClashFileName = clashFileName;
             ProfileFileName = profileFileName;
             AutoStartupClash = autoStartupClash;
             EnableHostingProfile = enableHostingProfile;
+            ProfileDir = profileDir;
             UsingProfileName = usingProfileName;
             Profiles = profiles;
         }
@@ -49,6 +55,7 @@ namespace WinFormsApp1
                 ProfileFileName,
                 AutoStartupClash.ToString(),
                 EnableHostingProfile.ToString(),
+                ProfileDir,
                 UsingProfileName,
                 EncodeProfiles(Profiles)
             });
@@ -66,6 +73,7 @@ namespace WinFormsApp1
             string profileFileName = "";
             bool autoStartupClash = false;
             bool enableHostingProfile = false;
+            string profileDir = DefaultProfileDir;
             string usingProfileName = "";
             List<HostingProfile> profiles = new List<HostingProfile>();
             if (lines.Length > 0)
@@ -97,16 +105,21 @@ namespace WinFormsApp1
 
             if (lines.Length > 4)
             {
-                usingProfileName = lines[4];
+                profileDir = lines[4];
             }
 
             if (lines.Length > 5)
             {
-                string value = lines[5];
+                usingProfileName = lines[5];
+            }
+
+            if (lines.Length > 6)
+            {
+                string value = lines[6];
                 profiles = DecodeProfiles(value);
             }
 
-            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile, usingProfileName, profiles);
+            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile, profileDir, usingProfileName, profiles);
         }
 
         private static string EncodeProfiles(List<HostingProfile> profiles)
