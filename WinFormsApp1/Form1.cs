@@ -230,37 +230,38 @@ public partial class Form1 : Form
 
     private string? UpdateCurrentProfile(Config config)
     {
+        // 使用托管配置
+        HostingProfile? profile = config.CurrentHostingProfile;
+        if (!profile.HasValue)
+        {
+            return null;
+        }
+        SetOutput("Found profile: " + profile.Value.Name);
+        string path = config.PathOf(profile.Value);
+        if (!File.Exists(path))
+        {
+            DownloadProfile(profile.Value, path, config);
+        }
+        return path;
+    }
+
+    private void DownloadProfile(HostingProfile profile, string path, Config config)
+    {
+        AppendOutput("Downloading profile: " + profile.URL);
+        AppendOutput("Downloading to: " + path);
         // 确定目录
         if (!Directory.Exists(config.ProfileDir))
         {
             Directory.CreateDirectory(config.ProfileDir);
         }
-        // 使用托管配置
-        HostingProfile ? profile = null;
-        foreach (HostingProfile i in config.Profiles)
-        {
-            if (i.Name == config.UsingProfileName)
-            {
-                profile = i;
-                break;
-            }
-        }
-        if (profile == null)
-        {
-            return null;
-        }
-        SetOutput("Found profile: " + profile.Value.Name);
-        AppendOutput("Downloading profile: " + profile.Value.URL);
-        string path = config.ProfileDir + "/" + profile.Value.Name;
-        AppendOutput("Downloading to: " + path);
+        // 开始下载
         using (HttpClient client = new())
         {
-            var t = client.GetStringAsync(profile.Value.URL);
+            var t = client.GetStringAsync(profile.URL);
             var res = t.GetAwaiter().GetResult();
             File.WriteAllBytes(path, Encoding.UTF8.GetBytes(res));
         }
         AppendOutput("Downloaded");
-        return path;
     }
 
     private void KillClash()
@@ -412,6 +413,13 @@ public partial class Form1 : Form
 
     private void UpdateProfileMenuItem_Click(object sender, EventArgs e)
     {
-        UpdateCurrentProfile(Config.ReadConfig());
+        Config config = Config.ReadConfig();
+        HostingProfile? profile = config.CurrentHostingProfile;
+        if (profile.HasValue)
+        {
+            SetOutput("Found profile: " + profile.Value.Name);
+            string path = config.PathOf(profile.Value);
+            DownloadProfile(profile.Value, path, config);
+        }
     }
 }

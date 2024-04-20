@@ -146,5 +146,25 @@ namespace WinFormsApp1
             }
             return profiles;
         }
+
+        internal string PathOf(HostingProfile profile)
+        {
+            return ProfileDir + "/" + profile.Name;
+        }
+
+        public HostingProfile? CurrentHostingProfile
+        {
+            get
+            {
+                foreach (HostingProfile i in Profiles)
+                {
+                    if (i.Name == UsingProfileName)
+                    {
+                        return i;
+                    }
+                }
+                return null;
+            }
+        }
     }
 }
