@@ -28,35 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            nameTextBox = new TextBox();
+            urlTextBox = new TextBox();
             label1 = new Label();
             label2 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            okButton = new Button();
+            cancelButton = new Button();
+            label3 = new Label();
+            profileListView = new ListView();
+            columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
+            saveButton = new Button();
+            label4 = new Label();
+            resetButton = new Button();
+            deleteButton = new Button();
             SuspendLayout();
             // 
-            // textBox1
+            // nameTextBox
             // 
-            textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox1.Location = new Point(3, 20);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(576, 23);
-            textBox1.TabIndex = 0;
+            nameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            nameTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            nameTextBox.Location = new Point(3, 44);
+            nameTextBox.Name = "nameTextBox";
+            nameTextBox.Size = new Size(405, 21);
+            nameTextBox.TabIndex = 0;
             // 
-            // textBox2
+            // urlTextBox
             // 
-            textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            textBox2.Location = new Point(3, 66);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(576, 66);
-            textBox2.TabIndex = 1;
+            urlTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            urlTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            urlTextBox.Location = new Point(3, 88);
+            urlTextBox.Multiline = true;
+            urlTextBox.Name = "urlTextBox";
+            urlTextBox.ScrollBars = ScrollBars.Vertical;
+            urlTextBox.Size = new Size(405, 62);
+            urlTextBox.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 0);
+            label1.Location = new Point(3, 24);
             label1.Name = "label1";
             label1.Size = new Size(84, 17);
             label1.TabIndex = 2;
@@ -65,56 +76,150 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 46);
+            label2.Location = new Point(3, 68);
             label2.Name = "label2";
             label2.Size = new Size(72, 17);
             label2.TabIndex = 3;
             label2.Text = "Profile URL";
             // 
-            // button1
+            // okButton
             // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button1.Location = new Point(393, 231);
-            button1.Name = "button1";
-            button1.Size = new Size(90, 33);
-            button1.TabIndex = 4;
-            button1.Text = "Ok";
-            button1.UseVisualStyleBackColor = true;
+            okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            okButton.Location = new Point(222, 425);
+            okButton.Name = "okButton";
+            okButton.Size = new Size(90, 33);
+            okButton.TabIndex = 4;
+            okButton.Text = "Ok";
+            okButton.UseVisualStyleBackColor = true;
+            okButton.Click += OkButton_Click;
             // 
-            // button2
+            // cancelButton
             // 
-            button2.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            button2.Location = new Point(489, 231);
-            button2.Name = "button2";
-            button2.Size = new Size(90, 33);
-            button2.TabIndex = 5;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += Button2_Click;
+            cancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            cancelButton.Location = new Point(318, 425);
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new Size(90, 33);
+            cancelButton.TabIndex = 5;
+            cancelButton.Text = "Cancel";
+            cancelButton.UseVisualStyleBackColor = true;
+            cancelButton.Click += CancelButton_Click;
             // 
-            // HostingProfile
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(3, 172);
+            label3.Name = "label3";
+            label3.Size = new Size(51, 17);
+            label3.TabIndex = 6;
+            label3.Text = "Profiles";
+            // 
+            // profileListView
+            // 
+            profileListView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            profileListView.CheckBoxes = true;
+            profileListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            profileListView.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            profileListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
+            profileListView.Location = new Point(3, 195);
+            profileListView.MultiSelect = false;
+            profileListView.Name = "profileListView";
+            profileListView.Size = new Size(405, 224);
+            profileListView.TabIndex = 7;
+            profileListView.UseCompatibleStateImageBehavior = false;
+            profileListView.View = View.Details;
+            profileListView.DoubleClick += ProfileListView_DoubleClick;
+            // 
+            // columnHeader1
+            // 
+            columnHeader1.Text = "Name";
+            columnHeader1.Width = 150;
+            // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "URL";
+            columnHeader2.Width = 200;
+            // 
+            // saveButton
+            // 
+            saveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            saveButton.Location = new Point(318, 156);
+            saveButton.Name = "saveButton";
+            saveButton.Size = new Size(90, 33);
+            saveButton.TabIndex = 8;
+            saveButton.Text = "Add";
+            saveButton.UseVisualStyleBackColor = true;
+            saveButton.Click += SaveButton_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(3, 3);
+            label4.Name = "label4";
+            label4.Size = new Size(74, 21);
+            label4.TabIndex = 9;
+            label4.Text = "托管配置";
+            // 
+            // resetButton
+            // 
+            resetButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            resetButton.Location = new Point(222, 156);
+            resetButton.Name = "resetButton";
+            resetButton.Size = new Size(90, 33);
+            resetButton.TabIndex = 10;
+            resetButton.Text = "Reset";
+            resetButton.UseVisualStyleBackColor = true;
+            resetButton.Visible = false;
+            resetButton.Click += ResetButton_Click;
+            // 
+            // deleteButton
+            // 
+            deleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            deleteButton.Location = new Point(3, 425);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(90, 33);
+            deleteButton.TabIndex = 11;
+            deleteButton.Text = "Delete";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += DeleteButton_Click;
+            // 
+            // HostingProfileBox
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(deleteButton);
+            Controls.Add(resetButton);
+            Controls.Add(label4);
+            Controls.Add(saveButton);
+            Controls.Add(profileListView);
+            Controls.Add(label3);
+            Controls.Add(cancelButton);
+            Controls.Add(okButton);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
-            Name = "HostingProfile";
-            Size = new Size(582, 267);
+            Controls.Add(urlTextBox);
+            Controls.Add(nameTextBox);
+            Name = "HostingProfileBox";
+            Size = new Size(411, 461);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox nameTextBox;
+        private TextBox urlTextBox;
         private Label label1;
         private Label label2;
-        private Button button1;
-        private Button button2;
+        private Button okButton;
+        private Button cancelButton;
+        private Label label3;
+        private ListView profileListView;
+        private ColumnHeader columnHeader1;
+        private ColumnHeader columnHeader2;
+        private Button saveButton;
+        private Label label4;
+        private Button resetButton;
+        private Button deleteButton;
     }
 }

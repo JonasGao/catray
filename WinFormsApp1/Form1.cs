@@ -240,8 +240,20 @@ public partial class Form1 : Form
         {
             Dock = DockStyle.Fill
         };
+        hostingProfile.LoadProfiles(Config.ReadConfig());
         hostingProfile.Cancel += (sender, e) =>
         {
+            Controls.Remove(hostingProfile);
+            Controls.Add(label1);
+            hostingProfile.Dispose();
+        };
+        hostingProfile.Ok += (sender, e) =>
+        {
+            HostingProfileOkEventArgs args = (HostingProfileOkEventArgs)e;
+            List<HostingProfile> profiles = args.profiles;
+            Config config = Config.ReadConfig();
+            config.Profiles = profiles;
+            config.Save();
             Controls.Remove(hostingProfile);
             Controls.Add(label1);
             hostingProfile.Dispose();

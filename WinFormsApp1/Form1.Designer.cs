@@ -155,9 +155,10 @@
             // 
             label1.ContextMenuStrip = contextMenuStrip1;
             label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(375, 214);
+            label1.Size = new Size(467, 382);
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
             // 
@@ -165,7 +166,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(375, 214);
+            ClientSize = new Size(467, 382);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
