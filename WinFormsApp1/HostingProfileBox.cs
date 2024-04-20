@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace WinFormsApp1
 {
-    public partial class HostingProfile : UserControl
+    public partial class HostingProfileBox : UserControl
     {
         public event EventHandler Cancel;
 
-        public HostingProfile()
+        public HostingProfileBox()
         {
             InitializeComponent();
         }

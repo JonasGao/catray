@@ -236,7 +236,7 @@ public partial class Form1 : Form
 
     private void HostingProfileMenuItem_Click(object sender, EventArgs e)
     {
-        HostingProfile hostingProfile = new()
+        HostingProfileBox hostingProfile = new()
         {
             Dock = DockStyle.Fill
         };

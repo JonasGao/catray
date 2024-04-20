@@ -1,6 +1,6 @@
 ﻿namespace WinFormsApp1
 {
-    partial class HostingProfile
+    partial class HostingProfileBox
     {
         /// <summary> 
         /// Required designer variable.
