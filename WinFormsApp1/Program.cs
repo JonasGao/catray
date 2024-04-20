@@ -10,6 +10,10 @@ namespace WinFormsApp1
         [STAThread]
         static void Main()
         {
+#if DEBUG
+            ApplicationConfiguration.Initialize();
+            Application.Run(new Form1());
+#else
             using Mutex mutex = new(false, AppId);
             if (mutex.WaitOne(0, false))
             {
@@ -22,6 +26,7 @@ namespace WinFormsApp1
             {
                 MessageBox.Show("Application already running.");
             }
+#endif
         }
     }
 }
