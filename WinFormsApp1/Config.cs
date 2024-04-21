@@ -114,7 +114,7 @@ namespace WinFormsApp1
         {
             get
             {
-                return string.IsNullOrWhiteSpace(ExternalUi);
+                return !string.IsNullOrWhiteSpace(ExternalUi);
             }
         }
 
