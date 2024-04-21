@@ -202,9 +202,9 @@ namespace WinFormsApp1
 
         public static void Set(this List<string> source, int index, string value)
         {
-            if (source.Count < index)
+            if (source.Count <= index)
             {
-                for (int i = source.Count - 1; i <= index; i++)
+                for (int i = source.Count; i <= index; i++)
                 {
                     source.Add("");
                 }
