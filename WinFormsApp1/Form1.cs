@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Text;
 
@@ -83,6 +84,8 @@ public partial class Form1 : Form
             // 标记自动启动
             autoStartupClashMenuItem.Checked = true;
         }
+        // 标记是否使用外部UI
+        externalUiMenuItem.Checked = config.CustomExternalUi;
     }
 
     private void ProfileItem_Click(object? sender, EventArgs e)
@@ -193,23 +196,21 @@ public partial class Form1 : Form
 
         _process.StartInfo.FileName = config.ClashFileName;
 
+        StringBuilder args = new();
+
         // 查找对应的配置
         if (config.EnableHostingProfile)
         {
             string? path = UpdateCurrentProfile(config);
             if (path != null)
             {
-                _process.StartInfo.Arguments = "-f " + path;
+                args.Append(" -f ").Append(path);
             }
         }
         else
         {
             // 使用本地配置
-            if (string.IsNullOrEmpty(config.ProfileFileName))
-            {
-                _process.StartInfo.Arguments = null;
-            }
-            else
+            if (!string.IsNullOrEmpty(config.ProfileFileName))
             {
                 if (!File.Exists(config.ProfileFileName))
                 {
@@ -217,8 +218,22 @@ public partial class Form1 : Form
                     return false;
                 }
 
-                _process.StartInfo.Arguments = "-f " + config.ProfileFileName;
+                args.Append(" -f ").Append(config.ProfileFileName);
             }
+        }
+
+        // 配置外部UI
+        if (config.CustomExternalUi)
+        {
+            args.Append(" -ext-ui ").Append(config.ExternalUi);
+        }
+
+        if (args.Length > 0)
+        {
+            _process.StartInfo.Arguments = args.ToString();
+        } else
+        {
+            _process.StartInfo.Arguments = null;
         }
 
         _process.Start();
@@ -420,6 +435,33 @@ public partial class Form1 : Form
             SetOutput("Found profile: " + profile.Value.Name);
             string path = config.PathOf(profile.Value);
             DownloadProfile(profile.Value, path, config);
+        }
+    }
+
+    private void ExternalUiMenuItem_Click(object sender, EventArgs e)
+    {
+        // 如果当前使用了。则取消这个配置
+        if (externalUiMenuItem.Checked)
+        {
+            Config config = Config.ReadConfig();
+            config.ExternalUi = "";
+            config.Save();
+            externalUiMenuItem.Checked = false;
+        } else
+        {
+            var d = new FolderBrowserDialog();
+            var r = d.ShowDialog();
+            if (r == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(d.SelectedPath))
+                {
+                    Config config = Config.ReadConfig();
+                    config.ExternalUi = d.SelectedPath;
+                    config.Save();
+                    externalUiMenuItem.Checked = true;
+                }
+            }
+            d.Dispose();
         }
     }
 }

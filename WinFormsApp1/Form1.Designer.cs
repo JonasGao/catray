@@ -42,11 +42,12 @@
             autoStartupClashMenuItem = new ToolStripMenuItem();
             configProfileToolStripMenuItem = new ToolStripMenuItem();
             localProfileMenuItem = new ToolStripMenuItem();
+            updateProfileMenuItem = new ToolStripMenuItem();
             hostingProfileMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
-            updateProfileMenuItem = new ToolStripMenuItem();
+            externalUiMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,9 +61,9 @@
             // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashMenuItem, externalUiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 280);
+            contextMenuStrip1.Size = new Size(181, 302);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
@@ -129,9 +130,16 @@
             // localProfileMenuItem
             // 
             localProfileMenuItem.Name = "localProfileMenuItem";
-            localProfileMenuItem.Size = new Size(141, 22);
+            localProfileMenuItem.Size = new Size(180, 22);
             localProfileMenuItem.Text = "本地 Profile";
             localProfileMenuItem.Click += LocalProfileMenuItem_Click;
+            // 
+            // updateProfileMenuItem
+            // 
+            updateProfileMenuItem.Name = "updateProfileMenuItem";
+            updateProfileMenuItem.Size = new Size(180, 22);
+            updateProfileMenuItem.Text = "更新当前 Profile";
+            updateProfileMenuItem.Click += UpdateProfileMenuItem_Click;
             // 
             // hostingProfileMenuItem
             // 
@@ -163,12 +171,12 @@
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
             // 
-            // updateProfileMenuItem
+            // externalUiMenuItem
             // 
-            updateProfileMenuItem.Name = "updateProfileMenuItem";
-            updateProfileMenuItem.Size = new Size(180, 22);
-            updateProfileMenuItem.Text = "更新当前 Profile";
-            updateProfileMenuItem.Click += UpdateProfileMenuItem_Click;
+            externalUiMenuItem.Name = "externalUiMenuItem";
+            externalUiMenuItem.Size = new Size(180, 22);
+            externalUiMenuItem.Text = "配置 External UI";
+            externalUiMenuItem.Click += ExternalUiMenuItem_Click;
             // 
             // Form1
             // 
@@ -206,5 +214,6 @@
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem localProfileMenuItem;
         private ToolStripMenuItem updateProfileMenuItem;
+        private ToolStripMenuItem externalUiMenuItem;
     }
 }
