@@ -204,7 +204,7 @@ namespace WinFormsApp1
         {
             if (source.Count < index)
             {
-                for (int i = source.Count - 1; i < index; i++)
+                for (int i = source.Count - 1; i <= index; i++)
                 {
                     source.Add("");
                 }
