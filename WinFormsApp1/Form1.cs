@@ -225,7 +225,7 @@ public partial class Form1 : Form
         // 配置外部UI
         if (config.CustomExternalUi)
         {
-            args.Append(" -ext-ui ").Append(config.ExternalUi);
+            args.Append(" -ext-ctl 127.0.0.1:9090 -ext-ui ").Append(config.ExternalUi);
         }
 
         if (args.Length > 0)
