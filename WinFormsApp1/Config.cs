@@ -18,11 +18,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options[0] ?? "clash.exe";
+                return _options.Get(0) ?? "clash.exe";
             }
             set
             {
-                _options[0] = value;
+                _options.Set(0, value);
             }
         }
 
@@ -30,11 +30,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options[1] ?? "";
+                return _options.Get(1) ?? "";
             }
             set
             {
-                _options[1] = value;
+                _options.Set(1, value);
             }
         }
 
@@ -42,11 +42,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return string.Equals(_options[2], "True");
+                return string.Equals(_options.Get(2), "True");
             }
             set
             {
-                _options[2] = value.ToString();
+                _options.Set(2, value.ToString());
             }
         }
 
@@ -54,11 +54,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return string.Equals(_options[3], "True");
+                return string.Equals(_options.Get(3), "True");
             }
             set
             {
-                _options[3] = value.ToString();
+                _options.Set(3, value.ToString());
             }
         }
 
@@ -66,11 +66,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options[4] ?? DefaultProfileDir;
+                return _options.Get(4) ?? DefaultProfileDir;
             }
             set
             {
-                _options[4] = value;
+                _options.Set(4, value);
             }
         }
 
@@ -78,11 +78,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options[5] ?? "";
+                return _options.Get(5) ?? "";
             }
             set
             {
-                _options[5] = value;
+                _options.Set(5, value);
             }
         }
 
@@ -90,11 +90,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_options[6]) ? new() : DecodeProfiles(_options[6]);
+                return string.IsNullOrWhiteSpace(_options.Get(6)) ? new() : DecodeProfiles(_options.Get(6)!);
             }
             set
             {
-                _options[6] = EncodeProfiles(value);
+                _options.Set(6, EncodeProfiles(value));
             }
         }
 
@@ -102,11 +102,11 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options[7] ?? "";
+                return _options.Get(7) ?? "";
             }
             set
             {
-                _options[7] = value;
+                _options.Set(7, value);
             }
         }
 
@@ -186,6 +186,30 @@ namespace WinFormsApp1
                 }
                 return null;
             }
+        }
+    }
+
+    internal static class List
+    {
+        public static string? Get(this List<string> source, int index)
+        {
+            if (source.Count <= index)
+            {
+                return null;
+            }
+            return source[index];
+        }
+
+        public static void Set(this List<string> source, int index, string value)
+        {
+            if (source.Count < index)
+            {
+                for (int i = source.Count - 1; i < index; i++)
+                {
+                    source.Add("");
+                }
+            }
+            source[index] = value;
         }
     }
 }
