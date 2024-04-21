@@ -12,53 +12,125 @@ namespace WinFormsApp1
 
         private const string DefaultProfileDir = ".profiles";
 
-        public string ClashFileName { get; set; }
+        private readonly List<string> _options;
 
-        public string ProfileFileName { get; set; }
+        public string ClashFileName
+        {
+            get
+            {
+                return _options[0] ?? "clash.exe";
+            }
+            set
+            {
+                _options[0] = value;
+            }
+        }
 
-        public bool AutoStartupClash { get; set; }
+        public string ProfileFileName
+        {
+            get
+            {
+                return _options[1] ?? "";
+            }
+            set
+            {
+                _options[1] = value;
+            }
+        }
 
-        public bool EnableHostingProfile { get; set; }
+        public bool AutoStartupClash
+        {
+            get
+            {
+                return string.Equals(_options[2], "True");
+            }
+            set
+            {
+                _options[2] = value.ToString();
+            }
+        }
 
-        public string ProfileDir { get; set; }
+        public bool EnableHostingProfile
+        {
+            get
+            {
+                return string.Equals(_options[3], "True");
+            }
+            set
+            {
+                _options[3] = value.ToString();
+            }
+        }
 
-        public string UsingProfileName { get; set; }
+        public string ProfileDir
+        {
+            get
+            {
+                return _options[4] ?? DefaultProfileDir;
+            }
+            set
+            {
+                _options[4] = value;
+            }
+        }
 
-        public List<HostingProfile> Profiles { get; set; }
+        public string UsingProfileName
+        {
+            get
+            {
+                return _options[5] ?? "";
+            }
+            set
+            {
+                _options[5] = value;
+            }
+        }
+
+        public List<HostingProfile> Profiles
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(_options[6]) ? new() : DecodeProfiles(_options[6]);
+            }
+            set
+            {
+                _options[6] = EncodeProfiles(value);
+            }
+        }
+
+        public string ExternalUi
+        {
+            get
+            {
+                return _options[7] ?? "";
+            }
+            set
+            {
+                _options[7] = value;
+            }
+        }
+
+        public bool CustomExternalUi
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(ExternalUi);
+            }
+        }
 
         private Config()
         {
-            ClashFileName = "clash.exe";
-            ProfileFileName = "";
-            AutoStartupClash = false;
-            EnableHostingProfile = false;
-            ProfileDir = DefaultProfileDir;
-            UsingProfileName = "";
-            Profiles = new List<HostingProfile>();
+            _options = new List<string>();
         }
 
-        public Config(string clashFileName, string profileFileName, bool autoStartupClash, bool enableHostingProfile, string profileDir, string usingProfileName, List<HostingProfile> profiles)
+        private Config(string[] options)
         {
-            ClashFileName = clashFileName;
-            ProfileFileName = profileFileName;
-            AutoStartupClash = autoStartupClash;
-            EnableHostingProfile = enableHostingProfile;
-            ProfileDir = profileDir;
-            UsingProfileName = usingProfileName;
-            Profiles = profiles;
+            _options = new(options);
         }
 
         public void Save()
         {
-            File.WriteAllLines(ConfigFileName, new string[]{
-                ClashFileName,
-                ProfileFileName,
-                AutoStartupClash.ToString(),
-                EnableHostingProfile.ToString(),
-                ProfileDir,
-                UsingProfileName,
-                EncodeProfiles(Profiles)
-            });
+            File.WriteAllLines(ConfigFileName, _options.ToArray());
         }
 
         public static Config ReadConfig()
@@ -68,58 +140,7 @@ namespace WinFormsApp1
                 return new Config();
             }
 
-            var lines = File.ReadAllLines(ConfigFileName);
-            string clashFileName = null!;
-            string profileFileName = "";
-            bool autoStartupClash = false;
-            bool enableHostingProfile = false;
-            string profileDir = DefaultProfileDir;
-            string usingProfileName = "";
-            List<HostingProfile> profiles = new List<HostingProfile>();
-            if (lines.Length > 0)
-            {
-                clashFileName = lines[0];
-            }
-
-            if (string.IsNullOrEmpty(clashFileName))
-            {
-                clashFileName = "clash.exe";
-            }
-
-            if (lines.Length > 1)
-            {
-                profileFileName = lines[1];
-            }
-
-            if (lines.Length > 2)
-            {
-                string value = lines[2];
-                autoStartupClash = string.Equals(value, "True");
-            }
-
-            if (lines.Length > 3)
-            {
-                string value = lines[3];
-                enableHostingProfile = string.Equals(value, "True");
-            }
-
-            if (lines.Length > 4)
-            {
-                profileDir = lines[4];
-            }
-
-            if (lines.Length > 5)
-            {
-                usingProfileName = lines[5];
-            }
-
-            if (lines.Length > 6)
-            {
-                string value = lines[6];
-                profiles = DecodeProfiles(value);
-            }
-
-            return new Config(clashFileName, profileFileName, autoStartupClash, enableHostingProfile, profileDir, usingProfileName, profiles);
+            return new Config(File.ReadAllLines(ConfigFileName));
         }
 
         private static string EncodeProfiles(List<HostingProfile> profiles)
