@@ -397,6 +397,10 @@ public partial class Form1 : Form
         };
         Controls.Remove(label1);
         Controls.Add(hostingProfile);
+        if (!Visible)
+        {
+            Show();
+        }
     }
 
     private void AutoStartupClashMenuItem_Click(object sender, EventArgs e)
