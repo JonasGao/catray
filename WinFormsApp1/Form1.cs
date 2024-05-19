@@ -8,29 +8,20 @@ namespace WinFormsApp1;
 
 public partial class Form1 : Form
 {
-    private readonly Process _process;
-    private bool _clashRunning;
+    private readonly ClashProcess clashProcess;
     private bool _realClose;
 
     public Form1()
     {
         InitializeComponent();
         InitializeEncoding();
-        _process = InitializeClashComponent();
+        clashProcess = ClashProcess.Create();
     }
 
     private static void InitializeEncoding()
     {
         var provider = CodePagesEncodingProvider.Instance;
         Encoding.RegisterProvider(provider);
-    }
-
-    private static Process InitializeClashComponent()
-    {
-        var process = new Process();
-        process.StartInfo.CreateNoWindow = true;
-        process.StartInfo.UseShellExecute = false;
-        return process;
     }
 
     private void Form1_Load(object sender, EventArgs e)
@@ -146,43 +137,12 @@ public partial class Form1 : Form
 
     private void QueryToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        QueryProcess();
+        AppendOutput(clashProcess.QueryProcess());
     }
 
-    private void QueryProcess()
+    internal bool StartupClash(Config config)
     {
-        var pwd = Directory.GetCurrentDirectory();
-        var builder = new StringBuilder()
-            .Append("# Working Directory: ").AppendLine(pwd)
-            .Append("# Core: ").AppendLine(_process.StartInfo.FileName)
-            .Append("# Arguments: ").AppendLine(_process.StartInfo.Arguments)
-            .AppendLine("------");
-        if (!_clashRunning)
-        {
-            builder.AppendLine("# Running Flag: false");
-        }
-        else
-        {
-            try
-            {
-                var pid = _process.Id;
-                builder.Append("# ID: ").AppendLine(pid.ToString())
-                    .Append("# Running Flag: ").AppendLine(_clashRunning.ToString())
-                    .Append("# HasExited: ").AppendLine(_process.HasExited.ToString());
-            }
-            catch (Exception)
-            {
-                builder.AppendLine("# Running Flag: true. But Process not exists");
-            }
-        }
-
-        var content = builder.ToString();
-        AppendOutput(content);
-    }
-
-    private bool StartupClash(Config config)
-    {
-        if (_clashRunning)
+        if (clashProcess.Running)
         {
             SetOutput("Clash is runing.");
             return false;
@@ -193,8 +153,6 @@ public partial class Form1 : Form
             SetOutput("Can not found clash: " + config.ClashFileName);
             return false;
         }
-
-        _process.StartInfo.FileName = config.ClashFileName;
 
         StringBuilder args = new();
 
@@ -228,18 +186,8 @@ public partial class Form1 : Form
             args.Append(" -ext-ctl 127.0.0.1:9090 -ext-ui ").Append(config.ExternalUi);
         }
 
-        if (args.Length > 0)
-        {
-            _process.StartInfo.Arguments = args.ToString();
-        } else
-        {
-            _process.StartInfo.Arguments = null;
-        }
-
-        _process.Start();
-        _clashRunning = true;
-
-        QueryProcess();
+        clashProcess.Startup(config.ClashFileName, args);
+        clashProcess.QueryProcess();
         return true;
     }
 
@@ -281,16 +229,14 @@ public partial class Form1 : Form
 
     private void KillClash()
     {
-        if (!_clashRunning) return;
-        _process.Kill();
-        _process.WaitForExit();
-        _clashRunning = false;
+        if (!clashProcess.Running) return;
+        clashProcess.Kill();
     }
 
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
     {
         KillClash();
-        QueryProcess();
+        clashProcess.QueryProcess();
     }
 
     private void SetOutput(string content)
