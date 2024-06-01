@@ -40,6 +40,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             configCoreToolStripMenuItem = new ToolStripMenuItem();
             autoStartupClashMenuItem = new ToolStripMenuItem();
+            externalUiMenuItem = new ToolStripMenuItem();
             configProfileToolStripMenuItem = new ToolStripMenuItem();
             localProfileMenuItem = new ToolStripMenuItem();
             updateProfileMenuItem = new ToolStripMenuItem();
@@ -47,7 +48,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
-            externalUiMenuItem = new ToolStripMenuItem();
+            autoStartupClashTrayMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -61,102 +62,109 @@
             // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashMenuItem, externalUiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(181, 302);
+            contextMenuStrip1.Size = new Size(185, 324);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
             // 
             openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(180, 22);
+            openToolStripMenuItem.Size = new Size(184, 22);
             openToolStripMenuItem.Text = "打开窗口";
             openToolStripMenuItem.Click += OpenToolStripMenuItem_Click;
             // 
             // openConsoleToolStripMenuItem
             // 
             openConsoleToolStripMenuItem.Name = "openConsoleToolStripMenuItem";
-            openConsoleToolStripMenuItem.Size = new Size(180, 22);
+            openConsoleToolStripMenuItem.Size = new Size(184, 22);
             openConsoleToolStripMenuItem.Text = "打开控制台";
             openConsoleToolStripMenuItem.Click += OpenConsoleToolStripMenuItem_Click;
             // 
             // queryToolStripMenuItem
             // 
             queryToolStripMenuItem.Name = "queryToolStripMenuItem";
-            queryToolStripMenuItem.Size = new Size(180, 22);
+            queryToolStripMenuItem.Size = new Size(184, 22);
             queryToolStripMenuItem.Text = "查询进程状态";
             queryToolStripMenuItem.Click += QueryToolStripMenuItem_Click;
             // 
             // killClashToolStripMenuItem
             // 
             killClashToolStripMenuItem.Name = "killClashToolStripMenuItem";
-            killClashToolStripMenuItem.Size = new Size(180, 22);
+            killClashToolStripMenuItem.Size = new Size(184, 22);
             killClashToolStripMenuItem.Text = "关闭 Clash";
             killClashToolStripMenuItem.Click += KillClashToolStripMenuItem_Click;
             // 
             // restartToolStripMenuItem
             // 
             restartToolStripMenuItem.Name = "restartToolStripMenuItem";
-            restartToolStripMenuItem.Size = new Size(180, 22);
+            restartToolStripMenuItem.Size = new Size(184, 22);
             restartToolStripMenuItem.Text = "重新启动";
             restartToolStripMenuItem.Click += RestartToolStripMenuItem_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(181, 6);
             // 
             // configCoreToolStripMenuItem
             // 
             configCoreToolStripMenuItem.Name = "configCoreToolStripMenuItem";
-            configCoreToolStripMenuItem.Size = new Size(180, 22);
+            configCoreToolStripMenuItem.Size = new Size(184, 22);
             configCoreToolStripMenuItem.Text = "配置 Core";
             configCoreToolStripMenuItem.Click += ConfigCoreToolStripMenuItem_Click;
             // 
             // autoStartupClashMenuItem
             // 
             autoStartupClashMenuItem.Name = "autoStartupClashMenuItem";
-            autoStartupClashMenuItem.Size = new Size(180, 22);
+            autoStartupClashMenuItem.Size = new Size(184, 22);
             autoStartupClashMenuItem.Text = "自动启动 Clash";
             autoStartupClashMenuItem.Click += AutoStartupClashMenuItem_Click;
+            // 
+            // externalUiMenuItem
+            // 
+            externalUiMenuItem.Name = "externalUiMenuItem";
+            externalUiMenuItem.Size = new Size(184, 22);
+            externalUiMenuItem.Text = "配置 External UI";
+            externalUiMenuItem.Click += ExternalUiMenuItem_Click;
             // 
             // configProfileToolStripMenuItem
             // 
             configProfileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { localProfileMenuItem });
             configProfileToolStripMenuItem.Name = "configProfileToolStripMenuItem";
-            configProfileToolStripMenuItem.Size = new Size(180, 22);
+            configProfileToolStripMenuItem.Size = new Size(184, 22);
             configProfileToolStripMenuItem.Text = "配置 Profile";
             // 
             // localProfileMenuItem
             // 
             localProfileMenuItem.Name = "localProfileMenuItem";
-            localProfileMenuItem.Size = new Size(180, 22);
+            localProfileMenuItem.Size = new Size(141, 22);
             localProfileMenuItem.Text = "本地 Profile";
             localProfileMenuItem.Click += LocalProfileMenuItem_Click;
             // 
             // updateProfileMenuItem
             // 
             updateProfileMenuItem.Name = "updateProfileMenuItem";
-            updateProfileMenuItem.Size = new Size(180, 22);
+            updateProfileMenuItem.Size = new Size(184, 22);
             updateProfileMenuItem.Text = "更新当前 Profile";
             updateProfileMenuItem.Click += UpdateProfileMenuItem_Click;
             // 
             // hostingProfileMenuItem
             // 
             hostingProfileMenuItem.Name = "hostingProfileMenuItem";
-            hostingProfileMenuItem.Size = new Size(180, 22);
+            hostingProfileMenuItem.Size = new Size(184, 22);
             hostingProfileMenuItem.Text = "托管 Profile";
             hostingProfileMenuItem.Click += HostingProfileMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(177, 6);
+            toolStripSeparator2.Size = new Size(181, 6);
             // 
             // closeToolStripMenuItem
             // 
             closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            closeToolStripMenuItem.Size = new Size(180, 22);
+            closeToolStripMenuItem.Size = new Size(184, 22);
             closeToolStripMenuItem.Text = "退出";
             closeToolStripMenuItem.Click += ToolStripMenuItem1_Click;
             // 
@@ -171,12 +179,12 @@
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
             // 
-            // externalUiMenuItem
+            // autoStartupClashTrayMenuItem
             // 
-            externalUiMenuItem.Name = "externalUiMenuItem";
-            externalUiMenuItem.Size = new Size(180, 22);
-            externalUiMenuItem.Text = "配置 External UI";
-            externalUiMenuItem.Click += ExternalUiMenuItem_Click;
+            autoStartupClashTrayMenuItem.Name = "autoStartupClashTrayMenuItem";
+            autoStartupClashTrayMenuItem.Size = new Size(184, 22);
+            autoStartupClashTrayMenuItem.Text = "自动启动 ClashTray";
+            autoStartupClashTrayMenuItem.Click += AutoStartupClashTrayMenuItem_Click;
             // 
             // Form1
             // 
@@ -215,5 +223,6 @@
         private ToolStripMenuItem localProfileMenuItem;
         private ToolStripMenuItem updateProfileMenuItem;
         private ToolStripMenuItem externalUiMenuItem;
+        private ToolStripMenuItem autoStartupClashTrayMenuItem;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,6 +109,35 @@ namespace WinFormsApp1
             {
                 _options.Set(7, value);
             }
+        }
+
+        public bool AutoStartupClashTray {
+            get
+            {
+                return string.Equals(_options.Get(8), "True");
+            }
+            set
+            {
+                _options.Set(8, value.ToString());
+                SetupAutoStartup(value);
+            }
+        }
+
+        private static void SetupAutoStartup(bool enabled)
+        {
+            var name = "com.github.jonasgao.clashtray";
+            var subkeyName = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+            var parentkey = Registry.CurrentUser;
+            var subkey = parentkey.OpenSubKey(subkeyName, true);
+            subkey ??= parentkey.CreateSubKey(subkeyName, true);
+            if (enabled)
+            {
+                subkey.SetValue(name, Application.ExecutablePath);
+            } else
+            {
+                subkey.DeleteValue(name, false);
+            }
+            subkey.Close();
         }
 
         public bool CustomExternalUi

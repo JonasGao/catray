@@ -397,7 +397,8 @@ public partial class Form1 : Form
             config.ExternalUi = "";
             config.Save();
             externalUiMenuItem.Checked = false;
-        } else
+        }
+        else
         {
             var d = new FolderBrowserDialog();
             var r = d.ShowDialog();
@@ -413,5 +414,12 @@ public partial class Form1 : Form
             }
             d.Dispose();
         }
+    }
+
+    private void AutoStartupClashTrayMenuItem_Click(object sender, EventArgs e)
+    {
+        Config config = Config.ReadConfig();
+        config.AutoStartupClashTray = autoStartupClashTrayMenuItem.Checked = !autoStartupClashTrayMenuItem.Checked;
+        config.Save();
     }
 }
