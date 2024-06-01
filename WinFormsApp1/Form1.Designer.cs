@@ -39,6 +39,7 @@
             restartToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             configCoreToolStripMenuItem = new ToolStripMenuItem();
+            autoStartupClashTrayMenuItem = new ToolStripMenuItem();
             autoStartupClashMenuItem = new ToolStripMenuItem();
             externalUiMenuItem = new ToolStripMenuItem();
             configProfileToolStripMenuItem = new ToolStripMenuItem();
@@ -48,7 +49,6 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
-            autoStartupClashTrayMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(185, 324);
+            contextMenuStrip1.Size = new Size(185, 302);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
@@ -113,6 +113,13 @@
             configCoreToolStripMenuItem.Size = new Size(184, 22);
             configCoreToolStripMenuItem.Text = "配置 Core";
             configCoreToolStripMenuItem.Click += ConfigCoreToolStripMenuItem_Click;
+            // 
+            // autoStartupClashTrayMenuItem
+            // 
+            autoStartupClashTrayMenuItem.Name = "autoStartupClashTrayMenuItem";
+            autoStartupClashTrayMenuItem.Size = new Size(184, 22);
+            autoStartupClashTrayMenuItem.Text = "自动启动 ClashTray";
+            autoStartupClashTrayMenuItem.Click += AutoStartupClashTrayMenuItem_Click;
             // 
             // autoStartupClashMenuItem
             // 
@@ -179,13 +186,6 @@
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
             // 
-            // autoStartupClashTrayMenuItem
-            // 
-            autoStartupClashTrayMenuItem.Name = "autoStartupClashTrayMenuItem";
-            autoStartupClashTrayMenuItem.Size = new Size(184, 22);
-            autoStartupClashTrayMenuItem.Text = "自动启动 ClashTray";
-            autoStartupClashTrayMenuItem.Click += AutoStartupClashTrayMenuItem_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -196,7 +196,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
-            Text = "ClashTray";
+            Text = "ClashTray 0.8";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
