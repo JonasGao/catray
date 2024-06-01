@@ -22,6 +22,7 @@ namespace WinFormsApp1
         private ClashProcess(Process process)
         {
             _process = process;
+            _process.OutputDataReceived += Process_OutputDataReceived;
         }
 
         internal static ClashProcess Create()
@@ -33,6 +34,14 @@ namespace WinFormsApp1
             process.StartInfo.RedirectStandardError = true;
             ClashProcess clashProcess = new(process);
             return clashProcess;
+        }
+
+        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                SetOutput(e.Data);
+            }
         }
 
         internal string QueryProcess()

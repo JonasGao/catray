@@ -49,6 +49,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             label1 = new Label();
+            label2 = new Label();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -160,7 +161,7 @@
             // 
             hostingProfileMenuItem.Name = "hostingProfileMenuItem";
             hostingProfileMenuItem.Size = new Size(184, 22);
-            hostingProfileMenuItem.Text = "托管 Profile";
+            hostingProfileMenuItem.Text = "配置托管 Profile";
             hostingProfileMenuItem.Click += HostingProfileMenuItem_Click;
             // 
             // toolStripSeparator2
@@ -178,24 +179,38 @@
             // label1
             // 
             label1.ContextMenuStrip = contextMenuStrip1;
-            label1.Dock = DockStyle.Fill;
+            label1.Dock = DockStyle.Top;
             label1.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(467, 382);
+            label1.Size = new Size(642, 247);
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.Black;
+            label2.ContextMenuStrip = contextMenuStrip1;
+            label2.Dock = DockStyle.Fill;
+            label2.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ForeColor = Color.WhiteSmoke;
+            label2.Location = new Point(0, 247);
+            label2.Name = "label2";
+            label2.Size = new Size(642, 233);
+            label2.TabIndex = 2;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(467, 382);
+            ClientSize = new Size(642, 480);
+            Controls.Add(label2);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ClashTray 0.8.1";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
@@ -224,5 +239,6 @@
         private ToolStripMenuItem updateProfileMenuItem;
         private ToolStripMenuItem externalUiMenuItem;
         private ToolStripMenuItem autoStartupClashTrayMenuItem;
+        private Label label2;
     }
 }

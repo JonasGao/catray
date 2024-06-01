@@ -39,7 +39,6 @@
             columnHeader1 = new ColumnHeader();
             columnHeader2 = new ColumnHeader();
             saveButton = new Button();
-            label4 = new Label();
             resetButton = new Button();
             deleteButton = new Button();
             SuspendLayout();
@@ -48,26 +47,26 @@
             // 
             nameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             nameTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            nameTextBox.Location = new Point(3, 44);
+            nameTextBox.Location = new Point(3, 20);
             nameTextBox.Name = "nameTextBox";
-            nameTextBox.Size = new Size(405, 21);
+            nameTextBox.Size = new Size(617, 21);
             nameTextBox.TabIndex = 0;
             // 
             // urlTextBox
             // 
             urlTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             urlTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            urlTextBox.Location = new Point(3, 88);
+            urlTextBox.Location = new Point(3, 64);
             urlTextBox.Multiline = true;
             urlTextBox.Name = "urlTextBox";
             urlTextBox.ScrollBars = ScrollBars.Vertical;
-            urlTextBox.Size = new Size(405, 62);
+            urlTextBox.Size = new Size(617, 62);
             urlTextBox.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(3, 24);
+            label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Size = new Size(84, 17);
             label1.TabIndex = 2;
@@ -76,7 +75,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(3, 68);
+            label2.Location = new Point(3, 44);
             label2.Name = "label2";
             label2.Size = new Size(72, 17);
             label2.TabIndex = 3;
@@ -85,7 +84,7 @@
             // okButton
             // 
             okButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            okButton.Location = new Point(222, 425);
+            okButton.Location = new Point(434, 425);
             okButton.Name = "okButton";
             okButton.Size = new Size(90, 33);
             okButton.TabIndex = 4;
@@ -96,7 +95,7 @@
             // cancelButton
             // 
             cancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            cancelButton.Location = new Point(318, 425);
+            cancelButton.Location = new Point(530, 425);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(90, 33);
             cancelButton.TabIndex = 5;
@@ -107,7 +106,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(3, 172);
+            label3.Location = new Point(3, 148);
             label3.Name = "label3";
             label3.Size = new Size(51, 17);
             label3.TabIndex = 6;
@@ -120,10 +119,10 @@
             profileListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             profileListView.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
             profileListView.HeaderStyle = ColumnHeaderStyle.Nonclickable;
-            profileListView.Location = new Point(3, 195);
+            profileListView.Location = new Point(3, 171);
             profileListView.MultiSelect = false;
             profileListView.Name = "profileListView";
-            profileListView.Size = new Size(405, 224);
+            profileListView.Size = new Size(617, 248);
             profileListView.TabIndex = 7;
             profileListView.UseCompatibleStateImageBehavior = false;
             profileListView.View = View.Details;
@@ -137,12 +136,12 @@
             // columnHeader2
             // 
             columnHeader2.Text = "URL";
-            columnHeader2.Width = 200;
+            columnHeader2.Width = 400;
             // 
             // saveButton
             // 
             saveButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            saveButton.Location = new Point(318, 156);
+            saveButton.Location = new Point(530, 132);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(90, 33);
             saveButton.TabIndex = 8;
@@ -150,20 +149,10 @@
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += SaveButton_Click;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(3, 3);
-            label4.Name = "label4";
-            label4.Size = new Size(74, 21);
-            label4.TabIndex = 9;
-            label4.Text = "托管配置";
-            // 
             // resetButton
             // 
             resetButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            resetButton.Location = new Point(222, 156);
+            resetButton.Location = new Point(434, 132);
             resetButton.Name = "resetButton";
             resetButton.Size = new Size(90, 33);
             resetButton.TabIndex = 10;
@@ -189,7 +178,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(deleteButton);
             Controls.Add(resetButton);
-            Controls.Add(label4);
             Controls.Add(saveButton);
             Controls.Add(profileListView);
             Controls.Add(label3);
@@ -200,7 +188,7 @@
             Controls.Add(urlTextBox);
             Controls.Add(nameTextBox);
             Name = "HostingProfileBox";
-            Size = new Size(411, 461);
+            Size = new Size(623, 461);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -218,7 +206,6 @@
         private ColumnHeader columnHeader1;
         private ColumnHeader columnHeader2;
         private Button saveButton;
-        private Label label4;
         private Button resetButton;
         private Button deleteButton;
     }

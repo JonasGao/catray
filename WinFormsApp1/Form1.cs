@@ -16,6 +16,12 @@ public partial class Form1 : Form
         InitializeComponent();
         InitializeEncoding();
         clashProcess = ClashProcess.Create();
+        clashProcess.MessageReceived += ClashProcess_MessageReceived;
+    }
+
+    private void ClashProcess_MessageReceived(object sender, MessageReceivedEventArgs e)
+    {
+        label2.Text += e.Message;
     }
 
     private static void InitializeEncoding()
@@ -189,7 +195,6 @@ public partial class Form1 : Form
         }
 
         clashProcess.Startup(config.ClashFileName, args);
-        clashProcess.QueryProcess();
         return true;
     }
 
@@ -291,32 +296,15 @@ public partial class Form1 : Form
 
     private void HostingProfileMenuItem_Click(object sender, EventArgs e)
     {
-        HostingProfileBox hostingProfile = new()
+        Form2 form2 = new();
+        DialogResult result = form2.ShowDialog();
+        Config config = form2.ConfigResult;
+        if (result == DialogResult.OK)
         {
-            Dock = DockStyle.Fill
-        };
-        hostingProfile.LoadProfiles(Config.ReadConfig());
-        hostingProfile.Cancel += (sender, e) =>
-        {
-            Controls.Remove(hostingProfile);
-            Controls.Add(label1);
-            hostingProfile.Dispose();
-        };
-        hostingProfile.Ok += (sender, e) =>
-        {
-            HostingProfileOkEventArgs args = (HostingProfileOkEventArgs)e;
-            List<HostingProfile> profiles = args.profiles;
-            // 保存配置
-            Config config = Config.ReadConfig();
-            config.Profiles = profiles;
-            config.Save();
-            // 更新窗口画面
-            Controls.Remove(hostingProfile);
-            Controls.Add(label1);
             // 更新菜单画面
             configProfileToolStripMenuItem.DropDownItems.Clear();
             configProfileToolStripMenuItem.DropDownItems.Add(localProfileMenuItem);
-            foreach (HostingProfile hostingProfile in profiles)
+            foreach (HostingProfile hostingProfile in config.Profiles)
             {
                 ToolStripMenuItem item = new()
                 {
@@ -340,14 +328,6 @@ public partial class Form1 : Form
                     }
                 }
             }
-            // 销毁组件
-            hostingProfile.Dispose();
-        };
-        Controls.Remove(label1);
-        Controls.Add(hostingProfile);
-        if (!Visible)
-        {
-            Show();
         }
     }
 
