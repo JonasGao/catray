@@ -12,8 +12,6 @@ namespace WinFormsApp1
         private readonly Process _process;
         private bool _clashRunning;
 
-        internal event MessageReceivedEventHandler? MessageReceived;
-
         internal bool Running
         {
             get { return _clashRunning; }
@@ -22,8 +20,6 @@ namespace WinFormsApp1
         private ClashProcess(Process process)
         {
             _process = process;
-            _process.OutputDataReceived += Process_OutputDataReceived;
-            _process.ErrorDataReceived += Process_ErrorDataReceived; ;
         }
 
         internal static ClashProcess Create()
@@ -34,31 +30,11 @@ namespace WinFormsApp1
                 {
                     CreateNoWindow = true,
                     UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    StandardOutputEncoding = Encoding.UTF8,
-                    StandardErrorEncoding = Encoding.UTF8,
                 }
             };
 
             ClashProcess clashProcess = new(process);
             return clashProcess;
-        }
-
-        private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data != null)
-            {
-                SetOutput(e.Data);
-            }
-        }
-
-        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (e.Data != null)
-            {
-                SetOutput("[Error]" + e.Data);
-            }
         }
 
         internal string QueryProcess()
@@ -105,35 +81,14 @@ namespace WinFormsApp1
 
             _process.StartInfo.FileName = clashFilepath;
             _process.Start();
-            _process.BeginOutputReadLine();
-            _process.BeginErrorReadLine();
             _clashRunning = true;
-        }
-
-        private void SetOutput(string message)
-        {
-            MessageReceived?.Invoke(this, new MessageReceivedEventArgs(message));
         }
 
         internal void Kill()
         {
             _process.Kill();
             _process.WaitForExit();
-            _process.CancelErrorRead();
-            _process.CancelOutputRead();
             _clashRunning = false;
         }
     }
-
-    public class MessageReceivedEventArgs : EventArgs
-    {
-        public string Message { get; }
-
-        public MessageReceivedEventArgs(string message)
-        {
-            Message = message;
-        }
-    }
-
-    public delegate void MessageReceivedEventHandler(object sender, MessageReceivedEventArgs e);
 }

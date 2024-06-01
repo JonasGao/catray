@@ -49,7 +49,6 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             logTextBox = new TextBox();
-            label1 = new Label();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -179,28 +178,17 @@
             // logTextBox
             // 
             logTextBox.BackColor = Color.Black;
+            logTextBox.ContextMenuStrip = contextMenuStrip1;
             logTextBox.Dock = DockStyle.Fill;
-            logTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            logTextBox.Font = new Font("Sarasa Mono SC", 9F, FontStyle.Regular, GraphicsUnit.Point);
             logTextBox.ForeColor = Color.WhiteSmoke;
-            logTextBox.Location = new Point(0, 247);
+            logTextBox.Location = new Point(0, 0);
             logTextBox.Multiline = true;
             logTextBox.Name = "logTextBox";
             logTextBox.ReadOnly = true;
-            logTextBox.ScrollBars = ScrollBars.Vertical;
-            logTextBox.Size = new Size(642, 233);
+            logTextBox.Size = new Size(642, 480);
             logTextBox.TabIndex = 2;
             logTextBox.WordWrap = false;
-            // 
-            // label1
-            // 
-            label1.ContextMenuStrip = contextMenuStrip1;
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(642, 247);
-            label1.TabIndex = 1;
-            label1.Text = "右键菜单控制";
             // 
             // Form1
             // 
@@ -208,13 +196,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(642, 480);
             Controls.Add(logTextBox);
-            Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClashTray 0.9";
+            Text = "ClashTray 0.10";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
@@ -234,7 +221,6 @@
         private ToolStripMenuItem openConsoleToolStripMenuItem;
         private ToolStripMenuItem configCoreToolStripMenuItem;
         private ToolStripMenuItem configProfileToolStripMenuItem;
-        private Label label1;
         private ToolStripMenuItem hostingProfileMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem autoStartupClashMenuItem;
