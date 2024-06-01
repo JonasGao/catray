@@ -23,15 +23,24 @@ namespace WinFormsApp1
         {
             _process = process;
             _process.OutputDataReceived += Process_OutputDataReceived;
+            _process.ErrorDataReceived += Process_ErrorDataReceived; ;
         }
 
         internal static ClashProcess Create()
         {
-            var process = new Process();
-            process.StartInfo.CreateNoWindow = true;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardOutput = true;
-            process.StartInfo.RedirectStandardError = true;
+            var process = new Process()
+            {
+                StartInfo =
+                {
+                    CreateNoWindow = true,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    StandardOutputEncoding = Encoding.UTF8,
+                    StandardErrorEncoding = Encoding.UTF8,
+                }
+            };
+
             ClashProcess clashProcess = new(process);
             return clashProcess;
         }
@@ -41,6 +50,14 @@ namespace WinFormsApp1
             if (e.Data != null)
             {
                 SetOutput(e.Data);
+            }
+        }
+
+        private void Process_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            if (e.Data != null)
+            {
+                SetOutput("[Error]" + e.Data);
             }
         }
 
@@ -88,6 +105,8 @@ namespace WinFormsApp1
 
             _process.StartInfo.FileName = clashFilepath;
             _process.Start();
+            _process.BeginOutputReadLine();
+            _process.BeginErrorReadLine();
             _clashRunning = true;
         }
 

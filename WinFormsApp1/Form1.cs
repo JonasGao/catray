@@ -21,7 +21,10 @@ public partial class Form1 : Form
 
     private void ClashProcess_MessageReceived(object sender, MessageReceivedEventArgs e)
     {
-        label2.Text += e.Message;
+        Invoke(new Action(() =>
+        {
+            logTextBox.Text += Environment.NewLine + e.Message;
+        }));
     }
 
     private static void InitializeEncoding()

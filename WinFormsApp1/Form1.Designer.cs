@@ -48,8 +48,8 @@
             hostingProfileMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
+            logTextBox = new TextBox();
             label1 = new Label();
-            label2 = new Label();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -176,6 +176,20 @@
             closeToolStripMenuItem.Text = "退出";
             closeToolStripMenuItem.Click += ToolStripMenuItem1_Click;
             // 
+            // logTextBox
+            // 
+            logTextBox.BackColor = Color.Black;
+            logTextBox.Dock = DockStyle.Fill;
+            logTextBox.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            logTextBox.ForeColor = Color.WhiteSmoke;
+            logTextBox.Location = new Point(0, 247);
+            logTextBox.Multiline = true;
+            logTextBox.Name = "logTextBox";
+            logTextBox.ReadOnly = true;
+            logTextBox.Size = new Size(642, 233);
+            logTextBox.TabIndex = 2;
+            logTextBox.WordWrap = false;
+            // 
             // label1
             // 
             label1.ContextMenuStrip = contextMenuStrip1;
@@ -187,24 +201,12 @@
             label1.TabIndex = 1;
             label1.Text = "右键菜单控制";
             // 
-            // label2
-            // 
-            label2.BackColor = Color.Black;
-            label2.ContextMenuStrip = contextMenuStrip1;
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Cascadia Code", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.ForeColor = Color.WhiteSmoke;
-            label2.Location = new Point(0, 247);
-            label2.Name = "label2";
-            label2.Size = new Size(642, 233);
-            label2.TabIndex = 2;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(642, 480);
-            Controls.Add(label2);
+            Controls.Add(logTextBox);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
@@ -216,6 +218,7 @@
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -239,6 +242,6 @@
         private ToolStripMenuItem updateProfileMenuItem;
         private ToolStripMenuItem externalUiMenuItem;
         private ToolStripMenuItem autoStartupClashTrayMenuItem;
-        private Label label2;
+        private TextBox logTextBox;
     }
 }
