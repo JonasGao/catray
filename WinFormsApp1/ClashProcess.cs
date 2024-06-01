@@ -119,6 +119,8 @@ namespace WinFormsApp1
         {
             _process.Kill();
             _process.WaitForExit();
+            _process.CancelErrorRead();
+            _process.CancelOutputRead();
             _clashRunning = false;
         }
     }

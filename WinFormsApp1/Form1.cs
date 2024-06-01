@@ -197,6 +197,7 @@ public partial class Form1 : Form
             args.Append(" -ext-ctl 127.0.0.1:9090 -ext-ui ").Append(config.ExternalUi);
         }
 
+        logTextBox.Text = "";
         clashProcess.Startup(config.ClashFileName, args);
         return true;
     }
