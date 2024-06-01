@@ -77,6 +77,8 @@ public partial class Form1 : Form
         }
         // 标记是否使用外部UI
         externalUiMenuItem.Checked = config.CustomExternalUi;
+        // 标记是否是自动启动
+        autoStartupClashTrayMenuItem.Checked = config.AutoStartupClashTray;
     }
 
     private void ProfileItem_Click(object? sender, EventArgs e)
