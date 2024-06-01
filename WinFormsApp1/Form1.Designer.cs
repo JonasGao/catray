@@ -59,6 +59,7 @@
             notifyIcon1.Icon = (Icon)resources.GetObject("notifyIcon1.Icon");
             notifyIcon1.Text = "Clash Tray";
             notifyIcon1.Visible = true;
+            notifyIcon1.DoubleClick += NotifyIcon1_DoubleClick;
             // 
             // contextMenuStrip1
             // 
@@ -178,11 +179,13 @@
             // logTextBox
             // 
             logTextBox.BackColor = Color.Black;
+            logTextBox.BorderStyle = BorderStyle.None;
             logTextBox.ContextMenuStrip = contextMenuStrip1;
             logTextBox.Dock = DockStyle.Fill;
             logTextBox.Font = new Font("Sarasa Mono SC", 9F, FontStyle.Regular, GraphicsUnit.Point);
             logTextBox.ForeColor = Color.WhiteSmoke;
             logTextBox.Location = new Point(0, 0);
+            logTextBox.Margin = new Padding(5);
             logTextBox.Multiline = true;
             logTextBox.Name = "logTextBox";
             logTextBox.ReadOnly = true;
@@ -201,7 +204,7 @@
             MinimizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClashTray 0.10";
+            Text = "ClashTray 0.11";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);

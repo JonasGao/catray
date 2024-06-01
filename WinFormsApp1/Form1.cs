@@ -400,4 +400,9 @@ public partial class Form1 : Form
         config.AutoStartupClashTray = autoStartupClashTrayMenuItem.Checked = !autoStartupClashTrayMenuItem.Checked;
         config.Save();
     }
+
+    private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
+    {
+        Show();
+    }
 }
