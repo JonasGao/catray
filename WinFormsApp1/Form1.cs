@@ -190,6 +190,7 @@ public partial class Form1 : Form
 
         logTextBox.Text = "";
         clashProcess.Startup(config.ClashFileName, args);
+        AppendOutput(clashProcess.QueryProcess());
         return true;
     }
 
