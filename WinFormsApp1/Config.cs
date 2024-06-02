@@ -200,7 +200,7 @@ namespace WinFormsApp1
 
         internal string PathOf(HostingProfile profile)
         {
-            return ProfileDir + "/" + profile.Name;
+            return Path.Join(ProfileDir, profile.Name);
         }
 
         public HostingProfile? CurrentHostingProfile
