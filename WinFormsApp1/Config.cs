@@ -9,17 +9,14 @@ namespace WinFormsApp1
 {
     internal class Config
     {
-        private static readonly string ConfigFileName = Path.Join(Application.StartupPath, ".config");
-
-        private const string DefaultProfileDir = ".profiles";
-
+        private readonly string _configFileName;
         private readonly List<string> _options;
 
         public string ClashFileName
         {
             get
             {
-                return _options.Get(0) ?? "clash.exe";
+                return _options.Get(0) ?? Path.Join(Application.StartupPath, "clash.exe");
             }
             set
             {
@@ -67,7 +64,7 @@ namespace WinFormsApp1
         {
             get
             {
-                return _options.Get(4) ?? DefaultProfileDir;
+                return _options.Get(4) ?? Path.Join(Application.StartupPath, ".profiles");
             }
             set
             {
@@ -150,27 +147,30 @@ namespace WinFormsApp1
 
         private Config()
         {
-            _options = new List<string>();
+            _options = null;
+            _configFileName = null;
         }
 
-        private Config(string[] options)
+        private Config(string configPath, string[] options)
         {
             _options = new(options);
+            _configFileName = configPath;
         }
 
         public void Save()
         {
-            File.WriteAllLines(ConfigFileName, _options.ToArray());
+            File.WriteAllLines(_configFileName, _options.ToArray());
         }
 
         public static Config ReadConfig()
         {
-            if (!File.Exists(ConfigFileName))
+            var configPath = Path.Join(Application.StartupPath, ".config");
+            if (!File.Exists(configPath))
             {
                 return new Config();
             }
 
-            return new Config(File.ReadAllLines(ConfigFileName));
+            return new Config(configPath, File.ReadAllLines(configPath));
         }
 
         private static string EncodeProfiles(List<HostingProfile> profiles)
