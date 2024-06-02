@@ -9,7 +9,7 @@ namespace WinFormsApp1
 {
     internal class Config
     {
-        private const string ConfigFileName = ".config";
+        private static readonly string ConfigFileName = Path.Join(Application.StartupPath, ".config");
 
         private const string DefaultProfileDir = ".profiles";
 
