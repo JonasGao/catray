@@ -182,7 +182,7 @@
             logTextBox.BorderStyle = BorderStyle.None;
             logTextBox.ContextMenuStrip = contextMenuStrip1;
             logTextBox.Dock = DockStyle.Fill;
-            logTextBox.Font = new Font("Sarasa Mono SC", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            logTextBox.Font = new Font("Sarasa Mono SC", 10F, FontStyle.Regular, GraphicsUnit.Point);
             logTextBox.ForeColor = Color.WhiteSmoke;
             logTextBox.Location = new Point(0, 0);
             logTextBox.Margin = new Padding(5);

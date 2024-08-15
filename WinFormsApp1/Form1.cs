@@ -211,7 +211,7 @@ public partial class Form1 : Form
         return path;
     }
 
-    private void DownloadProfile(HostingProfile profile, string path, Config config)
+    private async void DownloadProfile(HostingProfile profile, string path, Config config)
     {
         AppendOutput("Downloading profile: " + profile.URL);
         AppendOutput("Downloading to: " + path);
@@ -221,13 +221,22 @@ public partial class Form1 : Form
             Directory.CreateDirectory(config.ProfileDir);
         }
         // 开始下载
-        using (HttpClient client = new())
+        using HttpClient client = new();
+        HttpResponseMessage resp = await client.GetAsync(profile.URL);
+        if (resp.IsSuccessStatusCode)
         {
-            var t = client.GetStringAsync(profile.URL);
-            var res = t.GetAwaiter().GetResult();
-            File.WriteAllBytes(path, Encoding.UTF8.GetBytes(res));
+            using (var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
+                await resp.Content.CopyToAsync(fs);
+            AppendOutput("Successful downloaded");
         }
-        AppendOutput("Downloaded");
+        else
+        {
+            var body = await resp.Content.ReadAsStringAsync();
+            AppendOutput(string.Join(Environment.NewLine,
+                "Failure downloaded.",
+                $"Status is \"{resp.StatusCode}\".",
+                $"Body is \"{body}\"."));
+        }
     }
 
     private void KillClash()
@@ -239,7 +248,7 @@ public partial class Form1 : Form
     private void KillClashToolStripMenuItem_Click(object sender, EventArgs e)
     {
         KillClash();
-        clashProcess.QueryProcess();
+        AppendOutput(clashProcess.QueryProcess());
     }
 
     private void SetOutput(string content)
