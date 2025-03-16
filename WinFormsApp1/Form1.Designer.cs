@@ -49,6 +49,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             logTextBox = new TextBox();
+            publicExuiMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -63,9 +64,9 @@
             // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, publicExuiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(185, 302);
+            contextMenuStrip1.Size = new Size(185, 346);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
@@ -193,6 +194,13 @@
             logTextBox.TabIndex = 2;
             logTextBox.WordWrap = false;
             // 
+            // publicExuiMenuItem
+            // 
+            publicExuiMenuItem.Name = "publicExuiMenuItem";
+            publicExuiMenuItem.Size = new Size(184, 22);
+            publicExuiMenuItem.Text = "允许外部访问 Ex UI";
+            publicExuiMenuItem.Click += PublicExuiMenuItem_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -233,5 +241,6 @@
         private ToolStripMenuItem externalUiMenuItem;
         private ToolStripMenuItem autoStartupClashTrayMenuItem;
         private TextBox logTextBox;
+        private ToolStripMenuItem publicExuiMenuItem;
     }
 }

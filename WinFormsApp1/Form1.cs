@@ -79,6 +79,8 @@ public partial class Form1 : Form
         externalUiMenuItem.Checked = config.CustomExternalUi;
         // 标记是否是自动启动
         autoStartupClashTrayMenuItem.Checked = config.AutoStartupClashTray;
+        // 标记是否允许外部访问控制接口和视图
+        publicExuiMenuItem.Checked = config.PublicExternalUi;
     }
 
     private void ProfileItem_Click(object? sender, EventArgs e)
@@ -185,7 +187,15 @@ public partial class Form1 : Form
         // 配置外部UI
         if (config.CustomExternalUi)
         {
-            args.Append(" -ext-ctl 127.0.0.1:9090 -ext-ui ").Append(config.ExternalUi);
+            args.Append(" -ext-ui ").Append(config.ExternalUi);
+            if (config.PublicExternalUi)
+            {
+                args.Append(" -ext-ctl 0.0.0.0:9090");
+            }
+            else
+            {
+                args.Append(" -ext-ctl 127.0.0.1:9090");
+            }
         }
 
         logTextBox.Text = "";
@@ -413,5 +423,12 @@ public partial class Form1 : Form
     private void NotifyIcon1_DoubleClick(object sender, EventArgs e)
     {
         Show();
+    }
+
+    private void PublicExuiMenuItem_Click(object sender, EventArgs e)
+    {
+        Config config = Config.ReadConfig();
+        config.PublicExternalUi = publicExuiMenuItem.Checked = !publicExuiMenuItem.Checked;
+        config.Save();
     }
 }

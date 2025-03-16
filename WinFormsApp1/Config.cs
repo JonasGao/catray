@@ -120,6 +120,18 @@ namespace WinFormsApp1
             }
         }
 
+        public bool PublicExternalUi
+        {
+            get
+            {
+                return string.Equals(_options.Get(9), "True");
+            }
+            set
+            {
+                _options.Set(9, value.ToString());
+            }
+        }
+
         private static void SetupAutoStartup(bool enabled)
         {
             var name = "com.github.jonasgao.clashtray";
