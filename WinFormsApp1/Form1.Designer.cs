@@ -46,11 +46,11 @@
             configProfileToolStripMenuItem = new ToolStripMenuItem();
             localProfileMenuItem = new ToolStripMenuItem();
             updateProfileMenuItem = new ToolStripMenuItem();
+            lookCurrMenuItem = new ToolStripMenuItem();
             hostingProfileMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             logTextBox = new TextBox();
-            lookCurrMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             // 
             contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, publicExuiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, lookCurrMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(185, 368);
+            contextMenuStrip1.Size = new Size(185, 346);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
@@ -166,6 +166,13 @@
             updateProfileMenuItem.Text = "更新当前 Profile";
             updateProfileMenuItem.Click += UpdateProfileMenuItem_Click;
             // 
+            // lookCurrMenuItem
+            // 
+            lookCurrMenuItem.Name = "lookCurrMenuItem";
+            lookCurrMenuItem.Size = new Size(184, 22);
+            lookCurrMenuItem.Text = "查看当前 Profile";
+            lookCurrMenuItem.Click += LookCurrMenuItem_Click;
+            // 
             // hostingProfileMenuItem
             // 
             hostingProfileMenuItem.Name = "hostingProfileMenuItem";
@@ -202,13 +209,6 @@
             logTextBox.TabIndex = 2;
             logTextBox.WordWrap = false;
             // 
-            // lookCurrMenuItem
-            // 
-            lookCurrMenuItem.Name = "lookCurrMenuItem";
-            lookCurrMenuItem.Size = new Size(184, 22);
-            lookCurrMenuItem.Text = "查看当前 Profile";
-            lookCurrMenuItem.Click += LookCurrMenuItem_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -220,7 +220,7 @@
             MinimizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClashTray 0.11.2";
+            Text = "ClashTray 0.13";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);
