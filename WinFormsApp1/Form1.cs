@@ -431,4 +431,15 @@ public partial class Form1 : Form
         config.PublicExternalUi = publicExuiMenuItem.Checked = !publicExuiMenuItem.Checked;
         config.Save();
     }
+
+    private void LookCurrMenuItem_Click(object sender, EventArgs e)
+    {
+        Config config = Config.ReadConfig();
+        try
+        {
+            Process.Start(config.ProfileDir);
+        } catch (Exception ex) { 
+            MessageBox.Show(ex.Message, lookCurrMenuItem.Text);
+        }
+    }
 }

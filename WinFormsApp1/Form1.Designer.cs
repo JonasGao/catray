@@ -42,6 +42,7 @@
             autoStartupClashTrayMenuItem = new ToolStripMenuItem();
             autoStartupClashMenuItem = new ToolStripMenuItem();
             externalUiMenuItem = new ToolStripMenuItem();
+            publicExuiMenuItem = new ToolStripMenuItem();
             configProfileToolStripMenuItem = new ToolStripMenuItem();
             localProfileMenuItem = new ToolStripMenuItem();
             updateProfileMenuItem = new ToolStripMenuItem();
@@ -49,7 +50,7 @@
             toolStripSeparator2 = new ToolStripSeparator();
             closeToolStripMenuItem = new ToolStripMenuItem();
             logTextBox = new TextBox();
-            publicExuiMenuItem = new ToolStripMenuItem();
+            lookCurrMenuItem = new ToolStripMenuItem();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -64,9 +65,9 @@
             // 
             // contextMenuStrip1
             // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, publicExuiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, openConsoleToolStripMenuItem, queryToolStripMenuItem, killClashToolStripMenuItem, restartToolStripMenuItem, toolStripSeparator1, configCoreToolStripMenuItem, autoStartupClashTrayMenuItem, autoStartupClashMenuItem, externalUiMenuItem, publicExuiMenuItem, configProfileToolStripMenuItem, updateProfileMenuItem, lookCurrMenuItem, hostingProfileMenuItem, toolStripSeparator2, closeToolStripMenuItem });
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(185, 346);
+            contextMenuStrip1.Size = new Size(185, 368);
             contextMenuStrip1.Text = "Clash as Tray";
             // 
             // openToolStripMenuItem
@@ -137,6 +138,13 @@
             externalUiMenuItem.Text = "配置 External UI";
             externalUiMenuItem.Click += ExternalUiMenuItem_Click;
             // 
+            // publicExuiMenuItem
+            // 
+            publicExuiMenuItem.Name = "publicExuiMenuItem";
+            publicExuiMenuItem.Size = new Size(184, 22);
+            publicExuiMenuItem.Text = "允许外部访问 Ex UI";
+            publicExuiMenuItem.Click += PublicExuiMenuItem_Click;
+            // 
             // configProfileToolStripMenuItem
             // 
             configProfileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { localProfileMenuItem });
@@ -194,12 +202,12 @@
             logTextBox.TabIndex = 2;
             logTextBox.WordWrap = false;
             // 
-            // publicExuiMenuItem
+            // lookCurrMenuItem
             // 
-            publicExuiMenuItem.Name = "publicExuiMenuItem";
-            publicExuiMenuItem.Size = new Size(184, 22);
-            publicExuiMenuItem.Text = "允许外部访问 Ex UI";
-            publicExuiMenuItem.Click += PublicExuiMenuItem_Click;
+            lookCurrMenuItem.Name = "lookCurrMenuItem";
+            lookCurrMenuItem.Size = new Size(184, 22);
+            lookCurrMenuItem.Text = "查看当前 Profile";
+            lookCurrMenuItem.Click += LookCurrMenuItem_Click;
             // 
             // Form1
             // 
@@ -242,5 +250,6 @@
         private ToolStripMenuItem autoStartupClashTrayMenuItem;
         private TextBox logTextBox;
         private ToolStripMenuItem publicExuiMenuItem;
+        private ToolStripMenuItem lookCurrMenuItem;
     }
 }
