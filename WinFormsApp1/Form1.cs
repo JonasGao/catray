@@ -313,7 +313,7 @@ public partial class Form1 : Form
     {
         Form2 form2 = new();
         DialogResult result = form2.ShowDialog();
-        Config config = form2.ConfigResult;
+        Config config = form2.GetConfigResult();
         if (result == DialogResult.OK)
         {
             // 更新菜单画面

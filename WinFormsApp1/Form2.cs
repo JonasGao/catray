@@ -13,7 +13,12 @@ namespace WinFormsApp1
 {
     public partial class Form2 : Form
     {
-        internal Config ConfigResult { get; private set; }
+        private Config configResult;
+
+        internal Config GetConfigResult()
+        {
+            return configResult;
+        }
 
         public Form2()
         {
@@ -30,7 +35,7 @@ namespace WinFormsApp1
             config.Profiles = profiles;
             config.Save();
             DialogResult = DialogResult.OK;
-            ConfigResult = config;
+            configResult = config;
             Close();
         }
 
