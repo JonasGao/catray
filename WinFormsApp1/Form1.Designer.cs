@@ -198,7 +198,7 @@
             logTextBox.BorderStyle = BorderStyle.None;
             logTextBox.ContextMenuStrip = contextMenuStrip1;
             logTextBox.Dock = DockStyle.Fill;
-            logTextBox.Font = new Font("Sarasa Mono SC", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            logTextBox.Font = new Font("Cascadia Code", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             logTextBox.ForeColor = Color.WhiteSmoke;
             logTextBox.Location = new Point(0, 0);
             logTextBox.Margin = new Padding(5);
@@ -207,7 +207,6 @@
             logTextBox.ReadOnly = true;
             logTextBox.Size = new Size(642, 480);
             logTextBox.TabIndex = 2;
-            logTextBox.WordWrap = false;
             // 
             // Form1
             // 
@@ -220,7 +219,7 @@
             MinimizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "ClashTray 0.13";
+            Text = "ClashTray 0.14";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             contextMenuStrip1.ResumeLayout(false);

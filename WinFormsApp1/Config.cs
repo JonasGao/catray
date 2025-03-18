@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -157,15 +159,15 @@ namespace WinFormsApp1
             }
         }
 
-        private Config()
+        private Config(string configPath)
         {
-            _options = null;
-            _configFileName = null;
+            _options = [];
+            _configFileName = configPath;
         }
 
         private Config(string configPath, string[] options)
         {
-            _options = new(options);
+            _options = [.. options];
             _configFileName = configPath;
         }
 
@@ -179,7 +181,7 @@ namespace WinFormsApp1
             var configPath = Path.Join(Application.StartupPath, ".config");
             if (!File.Exists(configPath))
             {
-                return new Config();
+                return new Config(configPath);
             }
 
             return new Config(configPath, File.ReadAllLines(configPath));
@@ -235,6 +237,7 @@ namespace WinFormsApp1
     {
         public static string? Get(this List<string> source, int index)
         {
+            ArgumentNullException.ThrowIfNull(source);
             if (source.Count <= index)
             {
                 return null;
@@ -244,6 +247,7 @@ namespace WinFormsApp1
 
         public static void Set(this List<string> source, int index, string value)
         {
+            ArgumentNullException.ThrowIfNull(source);
             if (source.Count <= index)
             {
                 for (int i = source.Count; i <= index; i++)

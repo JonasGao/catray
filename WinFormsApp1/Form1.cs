@@ -435,11 +435,21 @@ public partial class Form1 : Form
     private void LookCurrMenuItem_Click(object sender, EventArgs e)
     {
         Config config = Config.ReadConfig();
+        if (string.IsNullOrWhiteSpace(config.ProfileDir))
+        {
+            MessageBox.Show("Profile directory is empty.", lookCurrMenuItem.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
         try
         {
-            Process.Start(config.ProfileDir);
+            using Process? _ = Process.Start(new ProcessStartInfo()
+            {
+                FileName = config.ProfileDir,
+                UseShellExecute = true,
+                Verb = "open"
+            });
         } catch (Exception ex) { 
-            MessageBox.Show(ex.Message, lookCurrMenuItem.Text);
+            MessageBox.Show(ex.Message, lookCurrMenuItem.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
