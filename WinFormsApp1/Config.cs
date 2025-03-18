@@ -181,7 +181,12 @@ namespace WinFormsApp1
             var configPath = Path.Join(Application.StartupPath, ".config");
             if (!File.Exists(configPath))
             {
-                return new Config(configPath);
+                // Create a default config file
+                var config = new Config(configPath)
+                {
+                    ProfileDir = Path.Join(Application.StartupPath, ".profiles")
+                };
+                return config;
             }
 
             return new Config(configPath, File.ReadAllLines(configPath));
