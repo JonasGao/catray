@@ -357,7 +357,7 @@ public partial class Form1 : Form
     {
         var d = new OpenFileDialog
         {
-            Filter = @"配置文件(*.yaml)|*.yaml|配置文件(*.yml)|*.yml"
+            Filter = @"配置文件(*.*)|*.*"
         };
         var r = d.ShowDialog();
         if (r == DialogResult.OK)
