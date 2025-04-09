@@ -62,17 +62,8 @@ namespace WinFormsApp1
             }
         }
 
-        public string ProfileDir
-        {
-            get
-            {
-                return _options.Get(4) ?? Path.Join(Application.StartupPath, ".profiles");
-            }
-            set
-            {
-                _options.Set(4, value);
-            }
-        }
+        // 本来是第4个选项，但不再使用。固定为启动路径
+        public static string ProfileDir => Path.Join(Application.StartupPath, "profiles");
 
         public string UsingProfileName
         {
@@ -182,10 +173,7 @@ namespace WinFormsApp1
             if (!File.Exists(configPath))
             {
                 // Create a default config file
-                var config = new Config(configPath)
-                {
-                    ProfileDir = Path.Join(Application.StartupPath, ".profiles")
-                };
+                var config = new Config(configPath);
                 return config;
             }
 

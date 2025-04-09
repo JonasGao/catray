@@ -226,9 +226,9 @@ public partial class Form1 : Form
         AppendOutput("Downloading profile: " + profile.URL);
         AppendOutput("Downloading to: " + path);
         // 确定目录
-        if (!Directory.Exists(config.ProfileDir))
+        if (!Directory.Exists(Config.ProfileDir))
         {
-            Directory.CreateDirectory(config.ProfileDir);
+            Directory.CreateDirectory(Config.ProfileDir);
         }
         // 开始下载
         using HttpClient client = new();
@@ -435,7 +435,7 @@ public partial class Form1 : Form
     private void LookCurrMenuItem_Click(object sender, EventArgs e)
     {
         Config config = Config.ReadConfig();
-        if (string.IsNullOrWhiteSpace(config.ProfileDir))
+        if (string.IsNullOrWhiteSpace(Config.ProfileDir))
         {
             MessageBox.Show("Profile directory is empty.", lookCurrMenuItem.Text, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
@@ -444,7 +444,7 @@ public partial class Form1 : Form
         {
             using Process? _ = Process.Start(new ProcessStartInfo()
             {
-                FileName = config.ProfileDir,
+                FileName = Config.ProfileDir,
                 UseShellExecute = true,
                 Verb = "open"
             });
