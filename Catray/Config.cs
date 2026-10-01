@@ -7,7 +7,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WinFormsApp1
+namespace Catray
 {
     internal class Config
     {
