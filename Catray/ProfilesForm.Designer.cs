@@ -1,6 +1,6 @@
 ﻿namespace Catray
 {
-    partial class ConfigForm
+    partial class ProfilesForm
     {
         /// <summary>
         /// Required designer variable.

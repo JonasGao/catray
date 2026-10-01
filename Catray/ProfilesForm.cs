@@ -12,7 +12,7 @@ using Catray;
 
 namespace Catray
 {
-    public partial class ConfigForm : Form
+    public partial class ProfilesForm : Form
     {
         private Config configResult;
 
@@ -21,7 +21,7 @@ namespace Catray
             return configResult;
         }
 
-        public ConfigForm()
+        public ProfilesForm()
         {
             InitializeComponent();
             hostingProfile.LoadProfiles(Config.ReadConfig());

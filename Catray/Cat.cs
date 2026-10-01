@@ -7,12 +7,12 @@ using Catray;
 
 namespace Catray;
 
-public partial class Form1 : Form
+public partial class Cat : Form
 {
     private readonly ClashProcess clashProcess;
     private bool _realClose;
 
-    public Form1()
+    public Cat()
     {
         InitializeComponent();
         InitializeEncoding();
@@ -312,7 +312,7 @@ public partial class Form1 : Form
 
     private void HostingProfileMenuItem_Click(object sender, EventArgs e)
     {
-        ConfigForm form2 = new();
+        ProfilesForm form2 = new();
         DialogResult result = form2.ShowDialog();
         Config config = form2.GetConfigResult();
         if (result == DialogResult.OK)
